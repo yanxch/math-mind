@@ -1,0 +1,10 @@
+<div class="calculation">
+    <div class="part" *ngFor="let part of currentCalculation">{{ part }}</div>
+</div>
+<input
+    [ngModel]="r"
+    type="number"
+    class="result"
+    placeholder="Ergebnis"
+    (input)="checkResult($event.target.value)"
+/>

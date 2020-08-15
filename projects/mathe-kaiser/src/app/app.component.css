@@ -1,0 +1,13 @@
+.calculation {
+    display: flex;
+}
+
+.part {
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 5em;
+}
+
+.result {
+    font-size: 3em;
+}

@@ -2,5 +2,123 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1, 
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "mathe-kaiser": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/mathe-kaiser",
+      "sourceRoot": "projects/mathe-kaiser/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/mathe-kaiser",
+            "index": "projects/mathe-kaiser/src/index.html",
+            "main": "projects/mathe-kaiser/src/main.ts",
+            "polyfills": "projects/mathe-kaiser/src/polyfills.ts",
+            "tsConfig": "projects/mathe-kaiser/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/mathe-kaiser/src/favicon.ico",
+              "projects/mathe-kaiser/src/assets"
+            ],
+            "styles": [
+              "projects/mathe-kaiser/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/mathe-kaiser/src/environments/environment.ts",
+                  "with": "projects/mathe-kaiser/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "mathe-kaiser:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "mathe-kaiser:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "mathe-kaiser:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/mathe-kaiser/src/test.ts",
+            "polyfills": "projects/mathe-kaiser/src/polyfills.ts",
+            "tsConfig": "projects/mathe-kaiser/tsconfig.spec.json",
+            "karmaConfig": "projects/mathe-kaiser/karma.conf.js",
+            "assets": [
+              "projects/mathe-kaiser/src/favicon.ico",
+              "projects/mathe-kaiser/src/assets"
+            ],
+            "styles": [
+              "projects/mathe-kaiser/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/mathe-kaiser/tsconfig.app.json",
+              "projects/mathe-kaiser/tsconfig.spec.json",
+              "projects/mathe-kaiser/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/mathe-kaiser/e2e/protractor.conf.js",
+            "devServerTarget": "mathe-kaiser:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "mathe-kaiser:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "defaultProject": "mathe-kaiser"
 }
