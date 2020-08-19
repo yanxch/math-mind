@@ -8,7 +8,6 @@ module.exports = {
                 loader: 'postcss-loader',
                 options: {
                     ident: 'postcss',
-                    syntax: 'postcss-scss',
                     plugins: () => [
                         require('postcss-import'),
                         require('tailwindcss'),

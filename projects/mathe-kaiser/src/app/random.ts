@@ -1,7 +1,11 @@
 const OPERATORS = ['+', '-', '*'];
 
-export function randomNumber(end: number) {
+export function randomIntegerNumber(end: number) {
     return Math.floor(Math.random() * end) + 1;
+}
+
+export function randomDecimalNumber(end: number, decimalDigits: number) {
+    return Number((Math.random() * end).toFixed(decimalDigits));
 }
 
 export function randomOperator() {

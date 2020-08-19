@@ -1,11 +1,15 @@
 import { CalculationService } from './calculation';
-import { randomIntegerNumber, randomOperator } from './random';
+import {
+    randomDecimalNumber,
+    randomOperator,
+    randomIntegerNumber,
+} from './random';
 import { Injectable } from '@angular/core';
 
 @Injectable({
     providedIn: 'root',
 })
-export class EasyCalculationService extends CalculationService {
+export class SecondLevelCalculationService extends CalculationService {
     number1: number;
     number2: number;
     operator: string;
@@ -16,7 +20,7 @@ export class EasyCalculationService extends CalculationService {
     }
 
     newCalculation() {
-        this.number1 = randomIntegerNumber(10);
+        this.number1 = randomDecimalNumber(10, 1);
         this.number2 = randomIntegerNumber(10);
         this.operator = randomOperator();
     }

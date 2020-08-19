@@ -21,6 +21,7 @@
             "aot": true,
             "assets": [
               "projects/mathe-kaiser/src/favicon.ico",
+              "projects/mathe-kaiser/src/manifest.webmanifest",
               "projects/mathe-kaiser/src/assets"
             ],
             "styles": [
@@ -56,7 +57,9 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "projects/mathe-kaiser/ngsw-config.json"
             }
           }
         },
