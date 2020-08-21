@@ -1,4 +1,43 @@
-<div class="w-screen h-screen bg-green-500 bg-opacity-25">
+<nav class="bg-purple-800 p-6">
+    <div class="text-white mr-6">
+        <div class="flex justify-between">
+            <p class="text-2xl">Punkte: {{ points$ | async }}</p>
+            <div *ngIf="avatar$ | async as avatar">
+                <Planet
+                    *ngIf="avatar === 'planet'"
+                    size="50"
+                    mood="happy"
+                    [color]="avatarColor$ | async"
+                ></Planet>
+                <Backpack
+                    *ngIf="avatar === 'backpack'"
+                    size="50"
+                    mood="excited"
+                    [color]="avatarColor$ | async"
+                ></Backpack>
+                <Cat
+                    *ngIf="avatar === 'cat'"
+                    size="50"
+                    mood="excited"
+                    [color]="avatarColor$ | async"
+                ></Cat>
+                <Ghost
+                    *ngIf="avatar === 'ghost'"
+                    size="50"
+                    mood="excited"
+                    [color]="avatarColor$ | async"
+                ></Ghost>
+                <IceCream
+                    *ngIf="avatar === 'icecream'"
+                    size="50"
+                    mood="blissful"
+                    [color]="avatarColor$ | async"
+                ></IceCream>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="w-screen h-screen bg-green-200">
     <div class="flex justify-center">
         <p
             class="text-6xl font-mono p-5 text-purple-800"
@@ -13,7 +52,10 @@
             type="text"
             inputmode="decimal"
             placeholder="Ergebnis"
-            class="text-2xl lg-text-6xl"
+            class="text-4xl lg-text-6xl shadow bg-green-500 bg-opacity-25"
         />
+    </div>
+    <div class="mt-5">
+        <Success *ngIf="showSuccess"></Success>
     </div>
 </div>

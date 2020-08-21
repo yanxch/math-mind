@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { EasyCalculationService as FirstLevelCalculationService } from '../calculation.easy';
 import { SecondLevelCalculationService } from '../calculation.2nd';
 import { FormControl } from '@angular/forms';
+import { StateService } from '../state/state.service';
 
 @Component({
     selector: 'app-game',
@@ -11,12 +12,18 @@ import { FormControl } from '@angular/forms';
 })
 export class GameComponent {
     result = new FormControl();
+    showSuccess = false;
+
+    points$ = this.stateService.points$;
+    avatar$ = this.stateService.avatar$;
+    avatarColor$ = this.stateService.avatarColor$;
 
     currentCalculation = this.secondLevelCalculation.calculationParts();
 
     constructor(
         private firstLevelCalculation: FirstLevelCalculationService,
-        private secondLevelCalculation: SecondLevelCalculationService
+        private secondLevelCalculation: SecondLevelCalculationService,
+        private stateService: StateService
     ) {
         this.result.valueChanges.subscribe((value) => this.checkResult(value));
     }
@@ -25,10 +32,19 @@ export class GameComponent {
         const result = eval(`${this.currentCalculation.join(' ')}`);
         console.log(value, result);
 
-        if (Number(result).toFixed(3) === Number(value).toFixed(3)) {
-            this.result.setValue(null);
-            this.secondLevelCalculation.newCalculation();
-            this.currentCalculation = this.secondLevelCalculation.calculationParts();
+        const isCorrect =
+            Number(result).toFixed(3) === Number(value).toFixed(3);
+
+        if (isCorrect) {
+            this.stateService.incrementPoints(10);
+            this.showSuccess = true;
+
+            setTimeout(() => {
+                this.showSuccess = false;
+                this.result.setValue(null);
+                this.secondLevelCalculation.newCalculation();
+                this.currentCalculation = this.secondLevelCalculation.calculationParts();
+            }, 2000);
         }
     }
 }
