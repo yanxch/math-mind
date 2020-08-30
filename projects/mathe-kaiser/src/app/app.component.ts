@@ -1,8 +1,4 @@
-import { Component, ChangeDetectorRef, HostListener } from '@angular/core';
-import { ThrowStmt } from '@angular/compiler';
-import { EasyCalculationService } from './calculation.easy';
-import { NgModel, FormControl } from '@angular/forms';
-import { SecondLevelCalculationService } from './calculation.2nd';
+import { Component, HostListener } from '@angular/core';
 import { StateService } from './state/state.service';
 
 @Component({

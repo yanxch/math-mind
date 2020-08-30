@@ -17,6 +17,10 @@ const routes: Routes = [
         path: 'avatar',
         component: AvatarComponent,
     },
+    {
+        path: '**',
+        redirectTo: 'login',
+    },
 ];
 
 @NgModule({

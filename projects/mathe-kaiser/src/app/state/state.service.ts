@@ -27,6 +27,7 @@ export class StateService {
         const state = {
             avatar: this.avatar$.value,
             avatarColor: this.avatarColor$.value,
+            points: this.points$.value,
         };
         window.localStorage.setItem('state', JSON.stringify(state));
     }
@@ -37,5 +38,6 @@ export class StateService {
 
         this.avatar$.next(stateObject.avatar);
         this.avatarColor$.next(stateObject.avatarColor);
+        this.points$.next(stateObject.points);
     }
 }

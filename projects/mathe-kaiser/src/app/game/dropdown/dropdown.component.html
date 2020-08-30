@@ -1,0 +1,28 @@
+<div class="flex">
+    <div>
+        <!--label class="block text-right pt-2 pr-4">Schwierigkeit</label-->
+    </div>
+    <div>
+        <input
+            type="text="
+            class="w-48 bg-purple-600 rounded-t-lg px-4 pt-2 pb-2 focus:outline-none"
+            [class.rounded-b-lg]="!show"
+            [value]="selectedValue?.label"
+            (focus)="open()"
+            (focusout)="close()"
+        />
+        <div
+            class="bg-purple-500 rounded-lg rounded-t-none py-2 w-48 absolute"
+            *ngIf="show"
+        >
+            <div
+                *ngFor="let option of options"
+                class="block px-4 py-2 hover:bg-purple-600 cursor-pointer"
+                value="level_1"
+                (click)="select(option)"
+            >
+                {{ option.label }}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,15 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { EasyCalculationService as FirstLevelCalculationService } from '../calculation.easy';
-import { SecondLevelCalculationService } from '../calculation.2nd';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    ViewChild,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { SecondLevelCalculationService } from '../calculation.2nd';
+import { FirstLevelCalculationService } from '../calculation.easy';
 import { StateService } from '../state/state.service';
+import { Option } from './dropdown/dropdown.component';
 
 @Component({
     selector: 'app-game',
@@ -10,7 +17,22 @@ import { StateService } from '../state/state.service';
     styleUrls: ['./game.component.css'],
     changeDetection: ChangeDetectionStrategy.Default,
 })
-export class GameComponent {
+export class GameComponent implements AfterViewInit {
+    difficultyOptions = [
+        {
+            label: 'Level 1',
+            value: this.firstLevelCalculation,
+        },
+        {
+            label: 'Level 2',
+            value: this.secondLevelCalculation,
+        },
+        {
+            label: 'Level 3',
+            value: this.secondLevelCalculation,
+        },
+    ];
+
     result = new FormControl();
     showSuccess = false;
 
@@ -18,7 +40,14 @@ export class GameComponent {
     avatar$ = this.stateService.avatar$;
     avatarColor$ = this.stateService.avatarColor$;
 
-    currentCalculation = this.secondLevelCalculation.calculationParts();
+    selectedDifficultyOption = this.difficultyOptions[0];
+    selectedDifficultyCalculation = this.selectedDifficultyOption.value;
+
+    currentCalculation = this.selectedDifficultyCalculation.calculationParts();
+
+    showMenu = false;
+
+    @ViewChild('inputElement') inputElement: ElementRef<HTMLInputElement>;
 
     constructor(
         private firstLevelCalculation: FirstLevelCalculationService,
@@ -28,9 +57,13 @@ export class GameComponent {
         this.result.valueChanges.subscribe((value) => this.checkResult(value));
     }
 
+    ngAfterViewInit() {
+        this.inputElement.nativeElement.focus();
+    }
+
     checkResult(value: any) {
         const result = eval(`${this.currentCalculation.join(' ')}`);
-        console.log(value, result);
+        // console.log(value, result);
 
         const isCorrect =
             Number(result).toFixed(3) === Number(value).toFixed(3);
@@ -42,9 +75,22 @@ export class GameComponent {
             setTimeout(() => {
                 this.showSuccess = false;
                 this.result.setValue(null);
-                this.secondLevelCalculation.newCalculation();
-                this.currentCalculation = this.secondLevelCalculation.calculationParts();
+                this.selectedDifficultyCalculation.newCalculation();
+                this.currentCalculation = this.selectedDifficultyCalculation.calculationParts();
             }, 2000);
         }
+    }
+
+    toggleMenu() {
+        this.showMenu = !this.showMenu;
+    }
+
+    difficultySelected(event: Option) {
+        console.log(event);
+        this.selectedDifficultyOption = event;
+        this.selectedDifficultyCalculation = event.value;
+
+        this.selectedDifficultyCalculation.newCalculation();
+        this.currentCalculation = this.selectedDifficultyCalculation.calculationParts();
     }
 }

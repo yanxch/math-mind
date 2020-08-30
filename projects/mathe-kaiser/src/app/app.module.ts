@@ -14,6 +14,8 @@ import { GameComponent } from './game/game.component';
 import { AngularKawaiiModule } from 'angular-kawaii';
 import { SuccessComponent } from './game/success/success.component';
 import { AvatarComponent } from './avatar/avatar.component';
+import { MenuButtonComponent } from './game/menu-button/menu-button.component';
+import { DropdownComponent } from './game/dropdown/dropdown.component';
 
 @NgModule({
     declarations: [
@@ -23,6 +25,8 @@ import { AvatarComponent } from './avatar/avatar.component';
         GameComponent,
         SuccessComponent,
         AvatarComponent,
+        MenuButtonComponent,
+        DropdownComponent,
     ],
     imports: [
         BrowserModule,
