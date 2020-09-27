@@ -8,6 +8,7 @@ import {
 import { FormControl } from '@angular/forms';
 import { SecondLevelCalculationService } from '../calculation.2nd';
 import { FirstLevelCalculationService } from '../calculation.easy';
+import { MultiplyCalculationService } from '../calculation.multiply';
 import { StateService } from '../state/state.service';
 import { Option } from './dropdown/dropdown.component';
 
@@ -29,7 +30,7 @@ export class GameComponent implements AfterViewInit {
         },
         {
             label: 'Level 3',
-            value: this.secondLevelCalculation,
+            value: this.multiplyCalculationService,
         },
     ];
 
@@ -52,6 +53,7 @@ export class GameComponent implements AfterViewInit {
     constructor(
         private firstLevelCalculation: FirstLevelCalculationService,
         private secondLevelCalculation: SecondLevelCalculationService,
+        private multiplyCalculationService: MultiplyCalculationService,
         private stateService: StateService
     ) {
         this.result.valueChanges.subscribe((value) => this.checkResult(value));

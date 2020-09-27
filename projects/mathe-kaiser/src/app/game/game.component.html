@@ -1,19 +1,12 @@
-<nav class="bg-purple-800 p-6" [class.h-64]="showMenu">
+<nav class="bg-purple-800 pt-3 pb-3 navbar" [class.navbar-open]="showMenu">
     <div class="text-white mr-6">
         <div class="flex justify-between">
             <div>
                 <Menu-Button (click)="toggleMenu()"></Menu-Button>
             </div>
-            <div>
-                <Dropdown
-                    [options]="difficultyOptions"
-                    [selectedValue]="selectedDifficultyOption"
-                    (selectedValueChange)="difficultySelected($event)"
-                >
-                </Dropdown>
-            </div>
+
             <div class="flex items-center">
-                <p class="text-2xl mr-4">Punkte: {{ points$ | async }}</p>
+                <p class="text-2xl mr-4">{{ points$ | async }}</p>
                 <div *ngIf="avatar$ | async as avatar">
                     <Planet
                         *ngIf="avatar === 'planet'"
@@ -48,9 +41,22 @@
                 </div>
             </div>
         </div>
+
+        <div class="pl-3 pr-3">
+            <Dropdown
+                *ngIf="showMenu"
+                [options]="difficultyOptions"
+                [selectedValue]="selectedDifficultyOption"
+                (selectedValueChange)="difficultySelected($event)"
+            >
+            </Dropdown>
+        </div>
     </div>
 </nav>
-<div class="w-screen h-screen bg-green-200">
+<div
+    class="w-screen bg-green-200 content"
+    [class.content-navbar-open]="showMenu"
+>
     <div class="flex justify-center">
         <p
             class="text-6xl font-mono p-5 text-purple-800"
