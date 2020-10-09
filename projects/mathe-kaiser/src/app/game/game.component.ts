@@ -95,4 +95,14 @@ export class GameComponent implements AfterViewInit {
         this.selectedDifficultyCalculation.newCalculation();
         this.currentCalculation = this.selectedDifficultyCalculation.calculationParts();
     }
+
+    pressed(char: string) {
+        this.result.setValue((this.result.value || '') + char);
+    }
+
+    pressedDelete() {
+        const currentValue: string = this.result.value;
+        const newValue = currentValue.substring(0, currentValue.length - 1);
+        this.result.setValue(newValue);
+    }
 }

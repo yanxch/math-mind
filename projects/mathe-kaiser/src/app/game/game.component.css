@@ -8,8 +8,29 @@
 
 .content {
     height: calc(100vh - 80px);
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    grid-template-columns: 100%;
 }
 
 .content-navbar-open {
     height: calc(100vh - 150px);
+}
+
+.numpad {
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+
+    bottom: 0;
+}
+
+.numpad button {
+    height: 60px;
+    background-color: #3c9a72bd;
+    color: white;
+    font-size: 1.5em;
+    font-weight: 400;
+    border: 0px solid #553c9a;
+    border-radius: 5px;
+    margin: 1px;
 }

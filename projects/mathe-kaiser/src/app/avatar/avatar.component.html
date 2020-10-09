@@ -3,12 +3,12 @@
         <p class="text-2xl flex justify-center">Wähle deine Farbe</p>
     </div>
 </nav>
-<div class="">
+<div class="w-screen bg-green-200 content">
     <div>
         <div class="flex flex-wrap justify-center pt-10">
             <div
                 *ngFor="let color of colors"
-                class="w-20 h-16 rounded border-gray-400 hover:border-purple-800 border-2 m-2 cursor-pointer"
+                class="w-10 h-10 rounded border-gray-400 hover:border-purple-800 border-2 m-2 cursor-pointer"
                 [style.backgroundColor]="color"
                 (click)="chooseColor(color)"
             ></div>
@@ -20,31 +20,31 @@
         >
             <Planet
                 *ngIf="avatar === 'planet'"
-                size="200"
+                size="100"
                 mood="happy"
                 [color]="selectedColor"
             ></Planet>
             <Backpack
                 *ngIf="avatar === 'backpack'"
-                size="200"
+                size="100"
                 mood="excited"
                 [color]="selectedColor"
             ></Backpack>
             <Cat
                 *ngIf="avatar === 'cat'"
-                size="200"
+                size="100"
                 mood="excited"
                 [color]="selectedColor"
             ></Cat>
             <Ghost
                 *ngIf="avatar === 'ghost'"
-                size="200"
+                size="100"
                 mood="excited"
                 [color]="selectedColor"
             ></Ghost>
             <IceCream
                 *ngIf="avatar === 'icecream'"
-                size="200"
+                size="100"
                 mood="blissful"
                 [color]="selectedColor"
             ></IceCream>

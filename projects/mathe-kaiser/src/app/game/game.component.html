@@ -72,10 +72,32 @@
             type="text"
             inputmode="decimal"
             placeholder=""
+            disabled
             class="p-10 min-w-full text-5xl lg-text-6xl shadow bg-green-500 bg-opacity-25 outline-none text-center"
         />
     </div>
     <div class="mt-5">
         <Success *ngIf="showSuccess"></Success>
+    </div>
+
+    <div>
+        <div class="numpad">
+            <button (click)="pressed('1')">1</button>
+            <button (click)="pressed('2')">2</button>
+            <button (click)="pressed('3')">3</button>
+
+            <button (click)="pressed('4')">4</button>
+            <button (click)="pressed('5')">5</button>
+            <button (click)="pressed('6')">6</button>
+
+            <button (click)="pressed('7')">7</button>
+            <button (click)="pressed('8')">8</button>
+            <button (click)="pressed('9')">9</button>
+
+            <button (click)="pressed('.')">,</button>
+            <button (click)="pressed('0')">0</button>
+            <button (click)="pressed('-')">-</button>
+            <button (click)="pressedDelete()">&lt;--</button>
+        </div>
     </div>
 </div>
