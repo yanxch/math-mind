@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { InvitationApi } from '../api/invitation-api';
 import { StateService } from './state/state.service';
 
 @Component({

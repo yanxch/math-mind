@@ -3,6 +3,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
+    OnDestroy,
     ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -12,13 +13,15 @@ import { MultiplyCalculationService } from '../calculation.multiply';
 import { StateService } from '../state/state.service';
 import { Option } from './dropdown/dropdown.component';
 
+import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+
 @Component({
     selector: 'app-game',
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.css'],
     changeDetection: ChangeDetectionStrategy.Default,
 })
-export class GameComponent implements AfterViewInit {
+export class GameComponent implements AfterViewInit, OnDestroy {
     difficultyOptions = [
         {
             label: 'Level 1',
@@ -47,6 +50,7 @@ export class GameComponent implements AfterViewInit {
     currentCalculation = this.selectedDifficultyCalculation.calculationParts();
 
     showMenu = false;
+    subject: WebSocketSubject<any>;
 
     @ViewChild('inputElement') inputElement: ElementRef<HTMLInputElement>;
 
@@ -57,13 +61,26 @@ export class GameComponent implements AfterViewInit {
         private stateService: StateService
     ) {
         this.result.valueChanges.subscribe((value) => this.checkResult(value));
+
+        this.subject = webSocket('ws://localhost:8080');
+
+        this.subject.subscribe(
+            (msg) => console.log('message received: ', msg), // Called whenever there is a message from the server.
+            (err) => console.log(err), // Called if at any point WebSocket API signals some kind of error.
+            () => console.log('complete') // Called when connection is closed (for whatever reason).
+        );
     }
 
     ngAfterViewInit() {
         this.inputElement.nativeElement.focus();
     }
 
+    ngOnDestroy() {
+        this.subject.complete();
+    }
+
     checkResult(value: any) {
+        this.subject.next({ message: value });
         const result = eval(`${this.currentCalculation.join(' ')}`);
         // console.log(value, result);
 

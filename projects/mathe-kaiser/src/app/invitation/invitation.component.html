@@ -1,0 +1,10 @@
+<div *ngIf="code$ | async as code">
+    <p>invitation works!</p>
+
+    <p>Your code is:</p>
+    <p>{{ code }}</p>
+
+    <p>{{ window.location }}/game/{{ code }}</p>
+    <button (click)="copy()">Copy</button><br />
+    <button (click)="toGame(code)">Play</button>
+</div>

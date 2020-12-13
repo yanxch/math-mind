@@ -1,0 +1,12 @@
+{
+  "watch": [
+    "projects/mathe-kaiser-server/src"
+  ],
+  "ext": "ts",
+  "ignore": [
+    "src/**/*.spec.ts"
+  ],
+  "exec": "ts-node --files --project projects/mathe-kaiser-server/tsconfig.json projects/mathe-kaiser-server/src",
+  "inspect": true,
+  "verbose": true
+}

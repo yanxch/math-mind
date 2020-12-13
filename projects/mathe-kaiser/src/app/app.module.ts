@@ -16,6 +16,13 @@ import { SuccessComponent } from './game/success/success.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { MenuButtonComponent } from './game/menu-button/menu-button.component';
 import { DropdownComponent } from './game/dropdown/dropdown.component';
+import { HttpClientModule } from '@angular/common/http';
+import { InvitationComponent } from './invitation/invitation.component';
+import { Game2Component } from './game2/game2.component';
+
+export function windowFactory() {
+    return window;
+}
 
 @NgModule({
     declarations: [
@@ -27,9 +34,12 @@ import { DropdownComponent } from './game/dropdown/dropdown.component';
         AvatarComponent,
         MenuButtonComponent,
         DropdownComponent,
+        InvitationComponent,
+        Game2Component,
     ],
     imports: [
         BrowserModule,
+        HttpClientModule,
         AppRoutingModule,
         FormsModule,
         ReactiveFormsModule,
@@ -38,7 +48,7 @@ import { DropdownComponent } from './game/dropdown/dropdown.component';
             enabled: environment.production,
         }),
     ],
-    providers: [],
+    providers: [{ provide: 'window', useFactory: windowFactory }],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -67,7 +67,8 @@
           "builder": "ngx-build-plus:dev-server",
           "options": {
             "browserTarget": "mathe-kaiser:build",
-            "extraWebpackConfig": "webpack.tailwind.js"
+            "extraWebpackConfig": "webpack.tailwind.js",
+            "proxyConfig": "projects/mathe-kaiser/proxy.conf.json"
           },
           "configurations": {
             "production": {
