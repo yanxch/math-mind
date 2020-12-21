@@ -9,6 +9,8 @@ const server = http.createServer(app);
 
 const connections: any = {};
 
+
+
 const wss = new ws.Server({ server });
 wss.on('connection', function connection(w) {
     w.on('message', function incoming(message: string) {
