@@ -1,10 +1,10 @@
 import { Code, Message } from '../models';
 
-export class CodeMessage implements Message<Code> {
+export class CodeMessage implements Message<string> {
     type: string;
-    payload: Code;
+    payload: string;
 
-    constructor(payload: Code) {
+    constructor(payload: string) {
         this.type = 'CODE';
         this.payload = payload;
     }

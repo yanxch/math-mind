@@ -1,2 +1,4 @@
-<p>game2 works!</p>
-<button (click)="send()">Send</button>
+<ng-container *ngIf="code$ | async as code">
+    <p>game2 works!</p>
+    <button (click)="send(code)">Send</button>
+</ng-container>

@@ -43,8 +43,8 @@ export class Game2Component implements OnInit, OnDestroy {
         this.subscription.unsubscribe();
     }
 
-    send() {
-        this.websocket$.next({ type: 'CODE', payload: 'test' });
+    send(code) {
+        this.websocket$.next({ type: 'CODE', payload: code });
     }
 
     // Status: INITIAL -> REGISTERED -> WAITING -> PLAY
