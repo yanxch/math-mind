@@ -1,5 +1,7 @@
+import ws from 'ws';
+
 export interface State {
-    connections: {[key: string]: Play};
+    connections: { [key: string]: Play };
 }
 
 export interface Message<T> {
@@ -43,8 +45,12 @@ export class Play {
 export class Player {
     connected = false;
     code: Code | undefined;
-    constructor(code: Code) {
+    connection: ws;
+    constructor(code: Code, connection: ws) {
         this.connected = true;
         this.code = code;
+        this.connection = connection;
     }
 }
+
+export class Empty {}

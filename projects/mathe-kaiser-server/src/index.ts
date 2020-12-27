@@ -1,49 +1,32 @@
 import express, { json } from 'express';
 import http from 'http';
 import ws from 'ws';
+import { onMessageCode } from './handlers/code-message-handler';
+import { Message, State } from './models';
 
 const app = express();
 const port = 8080; // default port to listen
 
 const server = http.createServer(app);
 
-const connections: any = {};
-
-
+const state: State = {
+    connections: {},
+};
 
 const wss = new ws.Server({ server });
-wss.on('connection', function connection(w) {
-    w.on('message', function incoming(message: string) {
-        const parsedMessage = JSON.parse(message);
+wss.on('connection', function connection(connection) {
+    connection.on('message', function incoming(message: string) {
+        const parsedMessage: Message<any> = JSON.parse(message);
 
         if (parsedMessage.type === 'CODE') {
-            const code = parsedMessage.payload;
-            console.log('sent code: ', code);
-            const c = connections[code];
-            console.log(c);
-            if (c) {
-                // second player
-                connections[code] = {
-                    ...connections[code],
-                    player2: w,
-                };
-
-                // ready to play
-                const { player1, player2 } = connections[code];
-                player1.send('{"test": "READY TO PLAY"}');
-                player2.send('{"test": "READY TO PLAY"}');
-            } else {
-                // first player
-                console.log('Add player 1');
-                connections[code] = { player1: w, player2: null };
-            }
+            const result = onMessageCode(state, parsedMessage, connection);
         }
 
         console.log('received: %s', message);
-        w.send(message);
+        connection.send(message);
     });
 
-    w.send(JSON.stringify({ type: 'CONNECTED' }));
+    connection.send(JSON.stringify({ type: 'CONNECTED' }));
 });
 
 app.get('/', (req, res) => {
