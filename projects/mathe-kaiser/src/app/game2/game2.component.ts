@@ -35,6 +35,8 @@ export class Game2Component implements OnInit, OnDestroy {
     showSuccess = false;
     showMenu = false;
 
+    code: string;
+
     points$ = this.stateService.points$;
     avatar$ = this.stateService.avatar$;
     avatarColor$ = this.stateService.avatarColor$;
@@ -51,10 +53,11 @@ export class Game2Component implements OnInit, OnDestroy {
             this.route.params
                 .pipe(
                     map((params) => params.code),
-                    tap(console.log)
+                    tap(console.log),
+                    tap((code) => this.code = code)
                 )
                 .subscribe((code) => {
-                    this.send(code);
+                    this.sendCode(code);
                 })
         );
 
@@ -102,13 +105,22 @@ export class Game2Component implements OnInit, OnDestroy {
             setTimeout(() => {
                 this.showSuccess = false;
                 this.result.setValue(null);
-                this.currentCalculation = [];
+                this.sendResult(value, this.code);
+
+                // Waiting for other player
             }, 2000);
         }
     }
 
-    send(code) {
+    sendCode(code) {
         this.websocket$.next({ type: 'CODE', payload: code });
+    }
+
+    sendResult(result: string, code: string) {
+        this.websocket$.next({ type: 'RESULT', payload: {
+            result, 
+            code
+        }});
     }
 
     toggleMenu() {
