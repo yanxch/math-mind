@@ -32,6 +32,7 @@ export class Code {
 export class Play {
     player1?: Player;
     player2?: Player;
+    calculation?: any[];
 
     hasPlayer1() {
         return this.player1 !== undefined;

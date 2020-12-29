@@ -50,7 +50,6 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     currentCalculation = this.selectedDifficultyCalculation.calculationParts();
 
     showMenu = false;
-    subject: WebSocketSubject<any>;
 
     @ViewChild('inputElement') inputElement: ElementRef<HTMLInputElement>;
 
@@ -61,26 +60,15 @@ export class GameComponent implements AfterViewInit, OnDestroy {
         private stateService: StateService
     ) {
         this.result.valueChanges.subscribe((value) => this.checkResult(value));
-
-        this.subject = webSocket('ws://localhost:8080');
-
-        this.subject.subscribe(
-            (msg) => console.log('message received: ', msg), // Called whenever there is a message from the server.
-            (err) => console.log(err), // Called if at any point WebSocket API signals some kind of error.
-            () => console.log('complete') // Called when connection is closed (for whatever reason).
-        );
     }
 
     ngAfterViewInit() {
         this.inputElement.nativeElement.focus();
     }
 
-    ngOnDestroy() {
-        this.subject.complete();
-    }
+    ngOnDestroy() {}
 
     checkResult(value: any) {
-        this.subject.next({ message: value });
         const result = eval(`${this.currentCalculation.join(' ')}`);
         // console.log(value, result);
 

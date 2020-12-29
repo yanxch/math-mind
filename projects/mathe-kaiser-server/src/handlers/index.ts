@@ -1,7 +1,8 @@
-import ws from "ws";
-import { Message } from "../models";
-import { state } from "../state";
-import { onMessageCode } from "./code-message-handler";
+import ws from 'ws';
+import { Message } from '../models';
+import { state } from '../state';
+import { onMessageCode } from './code-message-handler';
+import { onReadyToPlay } from './ready-to-play-message-handler';
 
 export function handleMessage(message: Message<any>, connection?: ws) {
     console.log('handle message: ', message);
@@ -12,6 +13,6 @@ export function handleMessage(message: Message<any>, connection?: ws) {
     }
 
     if (message.type === 'READY_TO_PLAY') {
-        
+        onReadyToPlay(state, message);
     }
 }
