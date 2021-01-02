@@ -47,14 +47,15 @@ export class Game2Component implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private stateService: StateService
     ) {
-        this.websocket$ = webSocket('ws://localhost:8080');
+        const HOST = location.origin.replace(/^http/, 'ws');
+        this.websocket$ = webSocket(HOST);
 
         this.subscription.add(
             this.route.params
                 .pipe(
                     map((params) => params.code),
                     tap(console.log),
-                    tap((code) => this.code = code)
+                    tap((code) => (this.code = code))
                 )
                 .subscribe((code) => {
                     this.sendCode(code);
@@ -117,10 +118,13 @@ export class Game2Component implements OnInit, OnDestroy {
     }
 
     sendResult(result: string, code: string) {
-        this.websocket$.next({ type: 'RESULT', payload: {
-            result, 
-            code
-        }});
+        this.websocket$.next({
+            type: 'RESULT',
+            payload: {
+                result,
+                code,
+            },
+        });
     }
 
     toggleMenu() {

@@ -1,12 +1,12 @@
-import express, { json } from 'express';
+import express from 'express';
 import http from 'http';
 import ws from 'ws';
+import path from 'path';
 import { handleMessage } from './handlers';
-import { onMessageCode } from './handlers/code-message-handler';
-import { Message, State } from './models';
+import { Message } from './models';
 
 const app = express();
-const port = 8080; // default port to listen
+const port = process.env.PORT || 8080; // default port to listen
 
 const server = http.createServer(app);
 
@@ -23,10 +23,10 @@ wss.on('connection', function connection(connection) {
     connection.send(JSON.stringify({ type: 'CONNECTED' }));
 });
 
+app.use('/', express.static(path.resolve(__dirname + '../../../mathe-kaiser')));
 
-
-app.get('/', (req, res) => {
-    res.end('Hello World');
+app.get('/*', (req, res) => {
+    res.sendFile(path.resolve(__dirname + '../../../mathe-kaiser/index.html'));
 });
 
 app.get('/api/invitation', (req, res) => {
