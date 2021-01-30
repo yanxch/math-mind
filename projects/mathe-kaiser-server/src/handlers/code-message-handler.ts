@@ -2,14 +2,14 @@ import ws from 'ws';
 import { CodeMessage } from '../messages/code-message';
 import { ReadyToPlayMessage } from '../messages/ready-to-play';
 import { WaitingForPlayerMessage } from '../messages/waiting-for-player';
-import { Code, Message, Play, Player, State } from '../models';
+import { JoinCode, Message, Play, Player, State } from '../models';
 
 export function onMessageCode(
     state: State,
     message: CodeMessage,
     connection: ws
 ): WaitingForPlayerMessage | ReadyToPlayMessage {
-    const code = new Code(message.payload);
+    const code = new JoinCode(message.payload);
     const connectionKey = code.getConnectionKey();
     const play = getPlay(state, connectionKey);
 

@@ -9,5 +9,10 @@
   "peerDependencies": {
     "tslib": "^1.10.0",
     "express": "^4.17.1"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.5.0",
+    "redux": "^4.0.5",
+    "redux-saga": "^1.1.3"
   }
 }

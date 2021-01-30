@@ -9,10 +9,25 @@ export interface Message<T> {
     payload: T;
 }
 
-export class Code {
-    value: string;
+function isNumber(number: string) {
+    return !isNaN(parseInt(number));
+}
+
+export class JoinCode {
+    private value: string;
+    private gameCode: string;
+    private playerNumber: string;
 
     constructor(value: string) {
+        const splittedCode = value.split('-');
+        if (splittedCode.length !== 2) {
+            throw new Error('Invalid code. Length');
+        }
+        if (!isNumber(splittedCode[1])) {
+            throw new Error('Invalid code. Number');
+        }
+        this.gameCode = splittedCode[0];
+        this.playerNumber = splittedCode[1];
         this.value = value;
     }
 
@@ -22,6 +37,14 @@ export class Code {
 
     isPlayer2() {
         return this.value.endsWith('-2');
+    }
+
+    getPlayerNumber() {
+        return this.playerNumber;
+    }
+
+    getGameCode() {
+        return this.gameCode;
     }
 
     getConnectionKey() {
@@ -45,9 +68,9 @@ export class Play {
 
 export class Player {
     connected = false;
-    code: Code | undefined;
+    code: JoinCode | undefined;
     connection: ws;
-    constructor(code: Code, connection: ws) {
+    constructor(code: JoinCode, connection: ws) {
         this.connected = true;
         this.code = code;
         this.connection = connection;
