@@ -1,17 +1,26 @@
-export type GameMap = {
-    [gameId: string]: Game
+export type Games = {
+    [gameCode: string]: GameState
 }
 
 export interface State {
-    games: GameMap;
+    games: Games;
 }
 
-export interface Game {
-    players: Player[];
+export interface GameState {
+    gameCode: string;
+    players: PlayerState[];
 }
 
-export interface Player {
-    name: string;
-    connectionKey: string;
-    status: 'CONNECTED' | 'NOT_YET_CONNECTED' | 'CLOSED'
+export type PlayerStatus = 'CONNECTED' | 'NOT_YET_CONNECTED' | 'CLOSED';
+
+export interface PlayerState {
+    joinState: JoinState;
+    status: PlayerStatus;
+}
+
+export interface JoinState {
+    value: string;
+    username: string;
+    gameCode: string;
+    playerNumber: string;
 }

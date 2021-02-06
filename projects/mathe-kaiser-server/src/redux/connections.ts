@@ -1,7 +1,5 @@
 import ws from "ws";
 
-export class Connections {
-    connections: {
+export const connections: {
         [connectionKey: string]: ws
     } = {};
-}
