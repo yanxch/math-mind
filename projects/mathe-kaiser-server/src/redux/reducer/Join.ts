@@ -2,10 +2,13 @@ import { Game } from '../model/Game';
 import { JoinCode } from '../model/JoinCode';
 import { State } from '../state';
 import ws from 'ws';
+import { PayloadAction } from '@reduxjs/toolkit';
 
-export function joinReducer(
+export type JoinedAction = { joinCode: string; username: string; connection?: ws };
+
+export function joinedLogic(
     state: State,
-    action: { payload: { joinCode: string; username: string; connection?: ws } }
+    action: PayloadAction<JoinedAction>
 ) {
     console.log('Within JoinReducer...');
     const joinCode = JoinCode.fromString(

@@ -1,6 +1,6 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-import { joinReducer } from './reducer/Join';
+import { joinedLogic } from './reducer/Join';
 import { mySaga } from './saga';
 import { State } from './state';
 
@@ -10,13 +10,13 @@ const counterSlice = createSlice({
     name: 'games',
     initialState: { games: {} },
     reducers: {
-        join: joinReducer,
+        joined: joinedLogic,
         ready,
     },
 });
 
 const { reducer, actions } = counterSlice;
-export const { join } = actions;
+export const { joined } = actions;
 
 export const store = configureStore({
     reducer,
