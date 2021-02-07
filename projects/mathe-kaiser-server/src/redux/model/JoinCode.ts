@@ -1,18 +1,25 @@
-import { isNumber } from "../../utils/number";
-import { JoinState } from "../state";
+import { isNumber } from '../../utils/number';
+import { JoinState } from '../state';
 
 export class JoinCode {
     private value: string;
     private gameCode: string;
     private playerNumber: string;
+    private username: string;
 
-    private constructor({value, gameCode, playerNumber}: JoinState) {
+    private constructor({
+        value,
+        gameCode,
+        playerNumber,
+        username,
+    }: JoinState) {
         this.value = value;
         this.gameCode = gameCode;
         this.playerNumber = playerNumber;
+        this.username = username;
     }
 
-    static fromString(value: string) {
+    static fromString(value: string, username: string) {
         const splittedCode = value.split('-');
         if (splittedCode.length !== 2) {
             throw new Error('Invalid code. Length');
@@ -22,7 +29,7 @@ export class JoinCode {
         }
         const gameCode = splittedCode[0];
         const playerNumber = splittedCode[1];
-        return new JoinCode({value, gameCode, playerNumber});
+        return new JoinCode({ value, gameCode, playerNumber, username });
     }
 
     static fromState(state: JoinState) {
@@ -33,7 +40,8 @@ export class JoinCode {
         return {
             value: this.value,
             gameCode: this.gameCode,
-            playerNumber: this.playerNumber
+            playerNumber: this.playerNumber,
+            username: this.username,
         };
     }
 

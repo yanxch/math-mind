@@ -4,6 +4,7 @@ import ws from 'ws';
 import path from 'path';
 import { handleMessage } from './handlers';
 import { Message } from './models';
+import { join, store } from './redux';
 
 const app = express();
 const port = process.env.PORT || 8080; // default port to listen
@@ -14,6 +15,16 @@ const wss = new ws.Server({ server });
 wss.on('connection', function connection(connection) {
     connection.on('message', function incoming(message: string) {
         const parsedMessage: Message<any> = JSON.parse(message);
+
+        console.log('PARSED MESSAGE: ', parsedMessage);
+
+        store.dispatch(
+            join({
+                joinCode: '123-1',
+                username: 'yanxi',
+                connection,
+            })
+        );
 
         handleMessage(parsedMessage, connection);
 

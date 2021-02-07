@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+import { environment } from '../../environments/environment';
 import { StateService } from '../state/state.service';
 
 enum Status {
@@ -47,7 +48,9 @@ export class Game2Component implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private stateService: StateService
     ) {
-        const HOST = location.origin.replace(/^http/, 'ws');
+        const HOST = environment.production
+            ? location.origin.replace(/^http/, 'ws')
+            : 'ws://localhost:8080';
         this.websocket$ = webSocket(HOST);
 
         this.subscription.add(

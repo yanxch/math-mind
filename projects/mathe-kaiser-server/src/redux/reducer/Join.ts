@@ -1,13 +1,20 @@
-import { Game } from "../model/Game";
-import { JoinCode } from "../model/JoinCode";
-import { PlayerState, State } from "../state";
+import { Game } from '../model/Game';
+import { JoinCode } from '../model/JoinCode';
+import { State } from '../state';
+import ws from 'ws';
 
-export function join(state: State, action: {payload: { joinCode: string, username: string }}) {
-    const joinCode = JoinCode.fromString(action.payload.joinCode);
+export function joinReducer(
+    state: State,
+    action: { payload: { joinCode: string; username: string; connection?: ws } }
+) {
+    console.log('Within JoinReducer...');
+    const joinCode = JoinCode.fromString(
+        action.payload.joinCode,
+        action.payload.username
+    );
     const gameCode = joinCode.getGameCode();
-    const playerNumber = joinCode.getPlayerNumber();
     const gameState = state.games[gameCode];
-  
+
     let game: Game;
     if (!gameState) {
         game = Game.fromGameCode(gameCode);
@@ -16,9 +23,9 @@ export function join(state: State, action: {payload: { joinCode: string, usernam
         game = Game.fromState(gameState);
         game.addNewPlayer(joinCode);
     }
-  
+
     return {
         ...state,
-        [gameCode]: game.asState()
+        [gameCode]: game.asState(),
     };
-  }
+}

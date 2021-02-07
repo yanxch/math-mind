@@ -1,20 +1,10 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import { takeEvery } from 'redux-saga/effects';
+import { join } from '..';
 
-
-// worker Saga: will be fired on USER_FETCH_REQUESTED actions
-function* fetchUser(action: any) {
-   try {
-      const user = yield call(Api.fetchUser, action.payload.userId);
-      yield put({type: "USER_FETCH_SUCCEEDED", user: user});
-   } catch (e) {
-      yield put({type: "USER_FETCH_FAILED", message: e.message});
-   }
+function* saveWebsocketConnection(action: any) {
+    console.log('Saved the WS connection..', action);
 }
 
-/*
-  Starts fetchUser on each dispatched `USER_FETCH_REQUESTED` action.
-  Allows concurrent fetches of user.
-*/
-function* mySaga() {
-  yield takeEvery("USER_FETCH_REQUESTED", fetchUser);
+export function* mySaga() {
+    yield takeEvery(join.type, saveWebsocketConnection);
 }
