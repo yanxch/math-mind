@@ -33,4 +33,8 @@ export class Game {
             status: 'CONNECTED',
         });
     }
+
+    getJoinCodes() {
+        return this.players.map(player => player.joinState.value);
+    }
 }
