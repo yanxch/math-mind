@@ -1,5 +1,11 @@
-import { State } from '../state';
+import { PayloadAction } from '@reduxjs/toolkit';
+import { GameState, State } from '../state';
 
-export function readyLogic(state: State, action: any) {
+export type ReadyToPlayAction = { gameState: GameState };
+
+export function readyToPlayLogic(
+    state: State,
+    action: PayloadAction<ReadyToPlayAction>
+) {
     return state;
 }

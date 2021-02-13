@@ -35,6 +35,10 @@ export class Game {
     }
 
     getJoinCodes() {
-        return this.players.map(player => player.joinState.value);
+        return this.players.map((player) => player.joinState.value);
+    }
+
+    getPlayersCount() {
+        return this.players.length;
     }
 }
