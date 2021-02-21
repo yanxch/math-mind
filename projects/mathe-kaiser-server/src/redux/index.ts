@@ -13,12 +13,12 @@ const counterSlice = createSlice({
     reducers: {
         joined: joinedLogic,
         startGame: startGameLogic,
-        waiting: sendCalculationLogic,
+        sendCaluclation: sendCalculationLogic,
     },
 });
 
 const { reducer, actions } = counterSlice;
-export const { joined, startGame, waiting } = actions;
+export const { joined, startGame, sendCaluclation } = actions;
 
 export const store = configureStore({
     reducer,

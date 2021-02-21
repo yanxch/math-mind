@@ -1,5 +1,5 @@
-import ws from "ws";
+import ws from 'ws';
 
 export const connections: {
-        [connectionKey: string]: ws
-    } = {};
+    [joinCode: string]: ws;
+} = {};

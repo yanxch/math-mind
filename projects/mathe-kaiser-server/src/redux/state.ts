@@ -1,8 +1,6 @@
-import { Calculation } from "./model/Calculation";
-
 export type Games = {
-    [gameCode: string]: GameState
-}
+    [gameCode: string]: GameState;
+};
 
 export interface State {
     games: Games;
@@ -12,7 +10,7 @@ export interface GameState {
     gameCode: string;
     players: PlayerState[];
     status: GameStatus;
-    calculation?: Calculation;
+    calculation?: CalculationState;
 }
 
 export interface CalculationState {

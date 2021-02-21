@@ -8,13 +8,12 @@ export function startGameLogic(
     state: State,
     action: PayloadAction<StartGameAction>
 ): State {
-
     const gameCode = action.payload.gameState.gameCode;
     const game = Game.fromState(action.payload.gameState);
     game.startGame();
 
     return {
         ...state,
-        [gameCode]: game.asState()
+        [gameCode]: game.asState(),
     };
 }

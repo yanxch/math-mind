@@ -1,4 +1,4 @@
-import { GameState, GameStatus, PlayerState } from '../state';
+import { CalculationState, GameState, GameStatus, PlayerState } from '../state';
 import { Calculation } from './Calculation';
 import { Join } from './Join';
 
@@ -6,7 +6,7 @@ export class Game {
     private gameCode: string;
     private players: PlayerState[];
     private status: GameStatus;
-    private calculation?: Calculation;
+    private calculation?: CalculationState;
 
     private constructor({ gameCode, players, status, calculation }: GameState) {
         this.gameCode = gameCode;
@@ -28,7 +28,7 @@ export class Game {
             gameCode: this.gameCode,
             players: this.players,
             status: this.status,
-            calculation: this.calculation
+            calculation: this.calculation,
         };
     }
 
@@ -50,11 +50,20 @@ export class Game {
     }
 
     isNewGame() {
+        // first player joined means that we have a new game that started
         return this.status !== 'STARTED' && this.players.length === 1;
     }
 
     startGame() {
         this.status = 'STARTED';
-        this.calculation = Calculation.newCalculation();
+        this.calculation = Calculation.newCalculation().asState();
+    }
+
+    currentCalculation() {
+        if (this.calculation) {
+            return this.calculation;
+        }
+        throw new Error(`This is not your fault. We are sorry. 
+            Calculation is not set when it should be!`);
     }
 }
