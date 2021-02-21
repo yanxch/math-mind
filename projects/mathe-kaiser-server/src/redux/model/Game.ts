@@ -1,17 +1,22 @@
-import { GameState, PlayerState } from '../state';
-import { JoinCode } from './JoinCode';
+import { GameState, GameStatus, PlayerState } from '../state';
+import { Calculation } from './Calculation';
+import { Join } from './Join';
 
 export class Game {
     private gameCode: string;
     private players: PlayerState[];
+    private status: GameStatus;
+    private calculation?: Calculation;
 
-    private constructor({ gameCode, players }: GameState) {
+    private constructor({ gameCode, players, status, calculation }: GameState) {
         this.gameCode = gameCode;
         this.players = players;
+        this.status = status;
+        this.calculation = calculation;
     }
 
     static fromGameCode(gameCode: string) {
-        return new Game({ gameCode, players: [] });
+        return new Game({ gameCode, players: [], status: 'NEW' });
     }
 
     static fromState(state: GameState) {
@@ -22,10 +27,12 @@ export class Game {
         return {
             gameCode: this.gameCode,
             players: this.players,
+            status: this.status,
+            calculation: this.calculation
         };
     }
 
-    addNewPlayer(joinCode: JoinCode) {
+    addNewPlayer(joinCode: Join) {
         // this.players.find(p => p.joinState.)
 
         this.players.push({
@@ -35,10 +42,19 @@ export class Game {
     }
 
     getJoinCodes() {
-        return this.players.map((player) => player.joinState.value);
+        return this.players.map((player) => player.joinState.joinCode);
     }
 
     getPlayersCount() {
         return this.players.length;
+    }
+
+    isNewGame() {
+        return this.status !== 'STARTED' && this.players.length === 1;
+    }
+
+    startGame() {
+        this.status = 'STARTED';
+        this.calculation = Calculation.newCalculation();
     }
 }

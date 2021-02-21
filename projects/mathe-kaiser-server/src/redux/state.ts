@@ -1,3 +1,5 @@
+import { Calculation } from "./model/Calculation";
+
 export type Games = {
     [gameCode: string]: GameState
 }
@@ -9,7 +11,17 @@ export interface State {
 export interface GameState {
     gameCode: string;
     players: PlayerState[];
+    status: GameStatus;
+    calculation?: Calculation;
 }
+
+export interface CalculationState {
+    operator: string;
+    calculation: any[];
+    result: number;
+}
+
+export type GameStatus = 'NEW' | 'WAITING' | 'STARTED';
 
 export type PlayerStatus = 'CONNECTED' | 'NOT_YET_CONNECTED' | 'CLOSED';
 
@@ -19,7 +31,7 @@ export interface PlayerState {
 }
 
 export interface JoinState {
-    value: string;
+    joinCode: string;
     username: string;
     gameCode: string;
     playerNumber: string;

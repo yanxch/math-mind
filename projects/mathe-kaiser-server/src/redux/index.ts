@@ -2,8 +2,8 @@ import { configureStore, createSlice } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import { joinedLogic } from './reducer/Join';
 import { joinedSaga } from './saga';
-import { readyToPlayLogic } from './reducer/Ready';
-import { waitingForOthersLogic } from './reducer/Waiting';
+import { startGameLogic } from './reducer/StartGame';
+import { sendCalculationLogic } from './reducer/SendCalculation';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -12,13 +12,13 @@ const counterSlice = createSlice({
     initialState: { games: {} },
     reducers: {
         joined: joinedLogic,
-        ready: readyToPlayLogic,
-        waiting: waitingForOthersLogic,
+        startGame: startGameLogic,
+        waiting: sendCalculationLogic,
     },
 });
 
 const { reducer, actions } = counterSlice;
-export const { joined, ready, waiting } = actions;
+export const { joined, startGame, waiting } = actions;
 
 export const store = configureStore({
     reducer,
