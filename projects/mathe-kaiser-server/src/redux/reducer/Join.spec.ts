@@ -1,6 +1,7 @@
 import { joined } from '..';
 import { State } from '../state';
 import { joinedLogic } from './Join';
+import { expect } from 'chai';
 
 describe('JoinReducerSpec', () => {
     it('worx', () => {
@@ -12,6 +13,6 @@ describe('JoinReducerSpec', () => {
         // When
         const newState = joinedLogic(state, action);
         // Then
-        expect(newState).not.toBeNull();
+        expect(newState).not.null;
     });
 });
