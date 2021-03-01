@@ -4,6 +4,7 @@ import { joinedLogic } from './reducer/Join';
 import { joinedSaga } from './saga';
 import { startGameLogic } from './reducer/StartGame';
 import { sendCalculationLogic } from './reducer/SendCalculation';
+import { createGameLogic } from './reducer/CreateGame';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -11,6 +12,7 @@ const counterSlice = createSlice({
     name: 'games',
     initialState: { games: {} },
     reducers: {
+        createGame: createGameLogic,
         joined: joinedLogic,
         startGame: startGameLogic,
         sendCaluclation: sendCalculationLogic,

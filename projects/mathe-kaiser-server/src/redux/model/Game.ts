@@ -38,6 +38,7 @@ export class Game {
         this.players.push({
             joinState: joinCode.asState(),
             status: 'CONNECTED',
+            username: // TODO
         });
     }
 
