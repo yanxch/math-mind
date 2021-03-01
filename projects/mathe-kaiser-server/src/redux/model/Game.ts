@@ -1,5 +1,6 @@
 import { CalculationState, GameState, GameStatus, PlayerState } from '../state';
 import { Calculation } from './Calculation';
+import { createGameCode } from './GameCode';
 import { Join } from './Join';
 
 export class Game {
@@ -23,6 +24,10 @@ export class Game {
         return new Game(state);
     }
 
+    static newGameCode() {
+        return createGameCode(6);
+    }
+
     asState(): GameState {
         return {
             gameCode: this.gameCode,
@@ -38,7 +43,7 @@ export class Game {
         this.players.push({
             joinState: joinCode.asState(),
             status: 'CONNECTED',
-            username: // TODO
+            username: '' // TODO
         });
     }
 
