@@ -20,7 +20,7 @@ const counterSlice = createSlice({
 });
 
 const { reducer, actions } = counterSlice;
-export const { joined, startGame, sendCaluclation } = actions;
+export const { createGame, joined, startGame, sendCaluclation } = actions;
 
 export const store = configureStore({
     reducer,
