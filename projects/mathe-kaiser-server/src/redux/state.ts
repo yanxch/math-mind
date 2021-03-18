@@ -24,7 +24,6 @@ export type GameStatus = 'NEW' | 'WAITING' | 'STARTED';
 export type PlayerStatus = 'CONNECTED' | 'NOT_YET_CONNECTED' | 'CLOSED';
 
 export interface PlayerState {
-    username: string;
     joinState: JoinState;
     status: PlayerStatus;
 }

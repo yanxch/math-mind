@@ -18,7 +18,12 @@ describe('CreateGameLogic', () => {
         expect(newState).not.null;
         expect(newState).to.deep.equal({
             games: {
-                [gameCode]: {},
+                [gameCode]: {
+                    calculation: undefined,
+                    gameCode: gameCode,
+                    players: [],
+                    status: 'NEW'
+                },
             },
         });
     });

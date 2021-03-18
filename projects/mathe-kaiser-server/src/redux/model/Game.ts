@@ -17,7 +17,7 @@ export class Game {
     }
 
     static fromGameCode(gameCode: string) {
-        return new Game({ gameCode, players: [], status: 'NEW' });
+        return new Game({ gameCode, players: [], status: 'NEW', calculation: undefined });
     }
 
     static fromState(state: GameState) {
@@ -43,7 +43,6 @@ export class Game {
         this.players.push({
             joinState: joinCode.asState(),
             status: 'CONNECTED',
-            username: '' // TODO
         });
     }
 

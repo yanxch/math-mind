@@ -26,7 +26,7 @@ describe('JoinReducerSpec', () => {
                                 gameCode: 'mygamecode',
                                 playerNumber: '123',
                             },
-                            status: 'CONNECTED',
+                            status: 'CONNECTED'
                         },
                     ],
                     status: 'NEW',

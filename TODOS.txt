@@ -1,0 +1,3 @@
+TODOS
+- make tests green (/)
+- warum in JoinSpec.ts =>  username: '' // Warum?? 
