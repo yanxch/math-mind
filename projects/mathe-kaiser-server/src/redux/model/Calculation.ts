@@ -14,8 +14,8 @@ export class Calculation {
 
     static newCalculation() {
         const operator = '*';
-        const calculation = [ randomDecimalNumber, operator, randomIntegerNumber ];
-        const result = eval(`${calculation.join(' ')}`);
+        const calculation = [ randomDecimalNumber(10, 1), operator, randomIntegerNumber(10) ];
+        const result = eval(calculation.join(' '));
 
         return new Calculation({ operator, calculation, result });
     }

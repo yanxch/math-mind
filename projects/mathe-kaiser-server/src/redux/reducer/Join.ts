@@ -11,7 +11,6 @@ export type JoinedAction = {
 };
 
 export function joinedLogic(state: State, action: PayloadAction<JoinedAction>) {
-    console.log('Within JoinReducer...');
     const joinCode = Join.fromString(
         action.payload.joinCode,
         action.payload.username
@@ -28,10 +27,5 @@ export function joinedLogic(state: State, action: PayloadAction<JoinedAction>) {
         game.addNewPlayer(joinCode);
     }
 
-    return {
-        ...state,
-        games: {
-            [gameCode]: game.asState(),
-        },
-    };
+    state.games[gameCode] = game.asState();
 }

@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { put, select, takeEvery } from 'redux-saga/effects';
+import { fork, put, select, takeEvery } from 'redux-saga/effects';
 import { joined, sendCaluclation, startGame } from '..';
 import { asJson } from '../../utils/ws-util';
 import { Game } from '../model/Game';
@@ -50,12 +50,23 @@ function* sendCalcuationEffect(
     });
 }
 
+export function* pureLogicSaga() {
+    yield takeEvery(joined.type, startGameEffect);
+}
+
 export function* joinedSaga() {
     yield takeEvery(joined.type, saveConnectionEffect);
-    yield takeEvery(joined.type, startGameEffect);
 }
 
 export function* gameStartedSaga() {
     yield takeEvery(startGame.type, sendCalcuationEffect);
     yield takeEvery(sendCaluclation.type, sendCalcuationEffect);
 }
+
+
+export function* rootSaga() {
+    yield fork(pureLogicSaga);
+    yield fork(joinedSaga);
+    yield fork(gameStartedSaga);
+    // code after fork-effect
+  }

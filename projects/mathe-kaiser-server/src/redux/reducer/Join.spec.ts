@@ -11,10 +11,10 @@ describe('JoinReducerSpec', () => {
         };
         const action = joined({ joinCode: 'mygamecode-123', username: 'hase' });
         // When
-        const newState = joinedLogic(state, action);
+        joinedLogic(state, action);
         // Then
-        expect(newState).not.null;
-        expect(newState).to.deep.equal({
+        expect(state).not.null;
+        expect(state).to.deep.equal({
             games: {
                 mygamecode: {
                     gameCode: 'mygamecode',

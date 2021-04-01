@@ -1,14 +1,14 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import { joinedLogic } from './reducer/Join';
-import { joinedSaga } from './saga';
+import { rootSaga } from './saga';
 import { startGameLogic } from './reducer/StartGame';
 import { sendCalculationLogic } from './reducer/SendCalculation';
 import { createGameLogic } from './reducer/CreateGame';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const counterSlice = createSlice({
+const storeSlice = createSlice({
     name: 'games',
     initialState: { games: {} },
     reducers: {
@@ -19,14 +19,13 @@ const counterSlice = createSlice({
     },
 });
 
-const { reducer, actions } = counterSlice;
+export const { reducer, actions } = storeSlice;
 export const { createGame, joined, startGame, sendCaluclation } = actions;
-
 export const store = configureStore({
     reducer,
     middleware: [sagaMiddleware],
 });
 
-sagaMiddleware.run(joinedSaga);
+sagaMiddleware.run(rootSaga);
 
 store.subscribe(() => console.log('STATE CHANGED:', store.getState()));
