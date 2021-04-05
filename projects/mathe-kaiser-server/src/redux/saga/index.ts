@@ -20,22 +20,6 @@ function* saveConnectionEffect(action: PayloadAction<JoinedAction>) {
     }
 }
 
-function* startGameEffect(action: PayloadAction<JoinedAction>) {
-    const { joinCode, username } = action.payload;
-
-    const code = Join.fromString(joinCode, username);
-    const gameCode = code.getGameCode();
-
-    const gameState: GameState = yield select(selectGame(gameCode));
-    const game = Game.fromState(gameState);
-
-    if (game.isNewGame()) {
-        yield put(startGame({ gameState }));
-    } else {
-        yield put(sendCaluclation({ gameState }));
-    }
-}
-
 function* sendCalcuationEffect(
     action:
         | PayloadAction<StartGameAction>
@@ -51,15 +35,14 @@ function* sendCalcuationEffect(
 }
 
 export function* pureLogicSaga() {
-    yield takeEvery(joined.type, startGameEffect);
 }
 
 export function* joinedSaga() {
     yield takeEvery(joined.type, saveConnectionEffect);
+    yield takeEvery(joined.type, sendCalcuationEffect);
 }
 
 export function* gameStartedSaga() {
-    yield takeEvery(startGame.type, sendCalcuationEffect);
     yield takeEvery(sendCaluclation.type, sendCalcuationEffect);
 }
 

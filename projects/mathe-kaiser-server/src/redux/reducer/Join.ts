@@ -18,13 +18,14 @@ export function joinedLogic(state: State, action: PayloadAction<JoinedAction>) {
     const gameCode = joinCode.getGameCode();
     const gameState = state.games[gameCode];
 
-    let game: Game;
-    if (!gameState) {
-        game = Game.fromGameCode(gameCode);
-        game.addNewPlayer(joinCode);
-    } else {
-        game = Game.fromState(gameState);
-        game.addNewPlayer(joinCode);
+    let game = gameState
+        ? Game.fromState(gameState)
+        : Game.fromGameCode(gameCode);
+
+    game.addNewPlayer(joinCode);
+
+    if (game.isNewGame()) {
+        game.startGame();
     }
 
     state.games[gameCode] = game.asState();

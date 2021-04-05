@@ -55,8 +55,7 @@ export class Game {
     }
 
     isNewGame() {
-        // first player joined means that we have a new game that started
-        return this.status !== 'STARTED' && this.players.length === 1;
+        return this.status === 'NEW';
     }
 
     startGame() {
