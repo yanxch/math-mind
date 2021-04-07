@@ -2,9 +2,16 @@ import { joined } from '..';
 import { State } from '../state';
 import { joinedLogic } from './Join';
 import { expect } from 'chai';
+import { Calculation } from '../model/Calculation';
+import * as sinon  from 'sinon';
 
 describe('JoinReducerSpec', () => {
     it('join new game', () => {
+        sinon.stub(Calculation, 'newCalculation').returns(Calculation.fromState({
+                operator: '*',
+                calculation: [],
+                result: 3
+            }));
         // Given
         const state: State = {
             games: {},
@@ -29,10 +36,15 @@ describe('JoinReducerSpec', () => {
                             status: 'CONNECTED'
                         },
                     ],
-                    status: 'NEW',
-                    calculation: undefined,
+                    status: 'STARTED',
+                    calculation: {
+                        calculation: [],
+                        operator: '*',
+                        result: 3
+                    },
                 },
             },
         });
     });
 });
+// TODO javascript fakes how 
