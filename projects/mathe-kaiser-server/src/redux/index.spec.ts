@@ -24,6 +24,7 @@ describe('Game', () => {
         store.dispatch(joinPlayer2);
         // Then
         console.log('Have fun');
+        console.log(JSON.stringify(store.getState(), null, 4));
         expect(store.getState()).not.null;
     });
 });
