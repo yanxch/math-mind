@@ -16,7 +16,7 @@ describe('JoinReducerSpec', () => {
         const state: State = {
             games: {},
         };
-        const action = joined({ joinCode: 'mygamecode-123', username: 'hase' });
+        const action = joined({ joinCode: 'mygamecode-hase' });
         // When
         joinedLogic(state, action);
         // Then
@@ -28,10 +28,9 @@ describe('JoinReducerSpec', () => {
                     players: [
                         {
                             joinState: {
-                                joinCode: 'mygamecode-123',
+                                joinCode: 'mygamecode-hase',
                                 username: 'hase',
-                                gameCode: 'mygamecode',
-                                playerNumber: '123',
+                                gameCode: 'mygamecode'
                             },
                             status: 'CONNECTED'
                         },

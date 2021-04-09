@@ -6,14 +6,12 @@ import { PayloadAction } from '@reduxjs/toolkit';
 
 export type JoinedAction = {
     joinCode: string;
-    username: string;
     connection?: ws;
 };
 
 export function joinedLogic(state: State, action: PayloadAction<JoinedAction>) {
     const joinCode = Join.fromString(
-        action.payload.joinCode,
-        action.payload.username
+        action.payload.joinCode
     );
     const gameCode = joinCode.getGameCode();
     const gameState = state.games[gameCode];

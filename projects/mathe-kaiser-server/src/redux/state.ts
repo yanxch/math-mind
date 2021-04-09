@@ -32,5 +32,4 @@ export interface JoinState {
     joinCode: string;
     username: string;
     gameCode: string;
-    playerNumber: string;
 }

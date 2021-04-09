@@ -17,8 +17,8 @@ describe('Game', () => {
 
     it ('2 players', () => {
         // Given
-        const joinPlayer1 = joined({ joinCode: 'mygamecode-1', username: 'hase' });
-        const joinPlayer2 = joined({ joinCode: 'mygamecode-2', username: 'hase' });
+        const joinPlayer1 = joined({ joinCode: 'mygamecode-hase1' });
+        const joinPlayer2 = joined({ joinCode: 'mygamecode-hase2' });
         // When
         store.dispatch(joinPlayer1);
         store.dispatch(joinPlayer2);

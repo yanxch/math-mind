@@ -4,32 +4,26 @@ import { JoinState } from '../state';
 export class Join {
     private joinCode: string;
     private gameCode: string;
-    private playerNumber: string;
     private username: string;
 
     private constructor({
         joinCode,
         gameCode,
-        playerNumber,
         username,
     }: JoinState) {
         this.joinCode = joinCode;
         this.gameCode = gameCode;
-        this.playerNumber = playerNumber;
         this.username = username;
     }
 
-    static fromString(joinCode: string, username: string) {
+    static fromString(joinCode: string) {
         const splittedCode = joinCode.split('-');
         if (splittedCode.length !== 2) {
             throw new Error('Invalid code. Length');
         }
-        if (!isNumber(splittedCode[1])) {
-            throw new Error('Invalid code. Number');
-        }
         const gameCode = splittedCode[0];
-        const playerNumber = splittedCode[1];
-        return new Join({ joinCode: joinCode, gameCode, playerNumber, username });
+        const username = splittedCode[1];
+        return new Join({ joinCode: joinCode, gameCode, username });
     }
 
     static fromState(state: JoinState) {
@@ -40,13 +34,8 @@ export class Join {
         return {
             joinCode: this.joinCode,
             gameCode: this.gameCode,
-            playerNumber: this.playerNumber,
             username: this.username,
         };
-    }
-
-    getPlayerNumber() {
-        return this.playerNumber;
     }
 
     getGameCode() {
