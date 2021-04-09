@@ -7,11 +7,8 @@ import * as sinon  from 'sinon';
 
 describe('JoinReducerSpec', () => {
     it('join new game', () => {
-        sinon.stub(Calculation, 'newCalculation').returns(Calculation.fromState({
-                operator: '*',
-                calculation: [],
-                result: 3
-            }));
+        // Stub
+        stubCalculation();
         // Given
         const state: State = {
             games: {},
@@ -46,4 +43,11 @@ describe('JoinReducerSpec', () => {
         });
     });
 });
-// TODO javascript fakes how 
+
+function stubCalculation() {
+    sinon.stub(Calculation, 'newCalculation').returns(Calculation.fromState({
+        operator: '*',
+        calculation: [],
+        result: 3
+    }));
+}
