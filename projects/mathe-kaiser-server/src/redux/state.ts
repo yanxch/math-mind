@@ -1,3 +1,5 @@
+import { TaskState } from "./model/Task";
+
 export type Games = {
     [gameCode: string]: GameState;
 };
@@ -10,7 +12,7 @@ export interface GameState {
     gameCode: string;
     players: PlayerState[];
     status: GameStatus;
-    calculation?: CalculationState;
+    task?: TaskState;
 }
 
 export interface CalculationState {

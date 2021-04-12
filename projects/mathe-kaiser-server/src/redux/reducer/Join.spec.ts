@@ -3,12 +3,22 @@ import { State } from '../state';
 import { joinedLogic } from './Join';
 import { expect } from 'chai';
 import { Calculation } from '../model/Calculation';
-import * as sinon  from 'sinon';
+import * as sinon from 'sinon';
+
+let sandbox: any;
 
 describe('JoinReducerSpec', () => {
-    it('join new game', () => {
+    beforeEach(() => {
         // Stub
+        sandbox = sinon.createSandbox();
         stubCalculation();
+    });
+
+    afterEach(() => {
+        sandbox.restore();
+    });
+
+    it('join new game', () => {
         // Given
         const state: State = {
             games: {},
@@ -45,7 +55,7 @@ describe('JoinReducerSpec', () => {
 });
 
 function stubCalculation() {
-    sinon.stub(Calculation, 'newCalculation').returns(Calculation.fromState({
+    sandbox.stub(Calculation, 'newCalculation').returns(Calculation.fromState({
         operator: '*',
         calculation: [],
         result: 3

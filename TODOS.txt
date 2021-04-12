@@ -3,4 +3,13 @@ TODOS
 - warum in JoinSpec.ts =>  username: '' // Warum?? -- entfernt. ist schon im JoinState enthalten (/)
 - Test für Ganzen Spiel machen. Outside in TDD. Serverseitig (/)
 
-- playerNumber - unnötig. gamecode-username muss eindeutig sein.
+- playerNumber - unnötig. gamecode-username muss eindeutig sein. (/)
+- check username is no already used (/)
+- write assert for Test-Case '2 Players Join' in index.spec.ts (/)
+
+- Calculation als Objekt übergeben. Dann muss man nicht so behindert stubben.
+- Calculation erbt von Task. Task muss ein Interface definieren. 
+ -- createTask
+ -- asState
+ -- fromState
+ -- isCorrect

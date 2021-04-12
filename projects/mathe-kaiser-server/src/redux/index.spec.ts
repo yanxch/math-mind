@@ -3,6 +3,8 @@ import createSagaMiddleware from "redux-saga";
 import { joined, reducer } from ".";
 import { pureLogicSaga } from "./saga";
 import { expect } from 'chai';
+import sinon from "sinon";
+import { Calculation } from "./model/Calculation";
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -13,9 +15,20 @@ export const store = configureStore({
 
 sagaMiddleware.run(pureLogicSaga);
 
-describe('Game', () => {
+let sandbox: any;
 
-    it ('2 players', () => {
+describe('Game', () => {
+    beforeEach(() => {
+        // Stub
+        sandbox = sinon.createSandbox();
+        stubCalculation();
+    });
+
+    afterEach(() => {
+        sandbox.restore();
+    });
+
+    it ('2 players join', () => {
         // Given
         const joinPlayer1 = joined({ joinCode: 'mygamecode-hase1' });
         const joinPlayer2 = joined({ joinCode: 'mygamecode-hase2' });
@@ -26,5 +39,44 @@ describe('Game', () => {
         console.log('Have fun');
         console.log(JSON.stringify(store.getState(), null, 4));
         expect(store.getState()).not.null;
+        expect(store.getState()).to.deep.equal({
+            games: {
+                mygamecode: {
+                    gameCode: "mygamecode",
+                    players: [
+                        {
+                            joinState: {
+                                joinCode: "mygamecode-hase1",
+                                gameCode: "mygamecode",
+                                username: "hase1"
+                            },
+                            status: "CONNECTED"
+                        },
+                        {
+                            joinState: {
+                                joinCode: "mygamecode-hase2",
+                                gameCode: "mygamecode",
+                                username: "hase2"
+                            },
+                            status: "CONNECTED"
+                        }
+                    ],
+                    status: "STARTED",
+                    calculation: {
+                        operator: '*',
+                        calculation: [0.5, '*', 7],
+                        result: 3.5
+                    }
+                }
+            }
+        })
     });
 });
+
+function stubCalculation() {
+    sandbox.stub(Calculation, 'newCalculation').returns(Calculation.fromState({
+        operator: '*',
+        calculation: [0.5, '*', 7],
+        result: 3.5
+    }));
+}

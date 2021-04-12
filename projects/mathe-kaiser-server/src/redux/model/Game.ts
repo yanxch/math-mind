@@ -2,22 +2,23 @@ import { CalculationState, GameState, GameStatus, PlayerState } from '../state';
 import { Calculation } from './Calculation';
 import { createGameCode } from './GameCode';
 import { Join } from './Join';
+import { Task, TaskState } from './Task';
 
 export class Game {
     private gameCode: string;
     private players: PlayerState[];
     private status: GameStatus;
-    private calculation?: CalculationState;
+    private task?: TaskState;
 
-    private constructor({ gameCode, players, status, calculation }: GameState) {
+    private constructor({ gameCode, players, status, task }: GameState) {
         this.gameCode = gameCode;
         this.players = players;
         this.status = status;
-        this.calculation = calculation;
+        this.task = task;
     }
 
     static fromGameCode(gameCode: string) {
-        return new Game({ gameCode, players: [], status: 'NEW', calculation: undefined });
+        return new Game({ gameCode, players: [], status: 'NEW', task: undefined });
     }
 
     static fromState(state: GameState) {
@@ -33,15 +34,20 @@ export class Game {
             gameCode: this.gameCode,
             players: this.players,
             status: this.status,
-            calculation: this.calculation,
+            task: this.task,
         };
     }
 
-    addNewPlayer(joinCode: Join) {
-        // this.players.find(p => p.joinState.)
+    addNewPlayer(join: Join) {
+        const {username} = join.asState();
+        
+        const isUsernameAlreadyTaken = this.players.some(p => p.joinState.username === username);
+        if (isUsernameAlreadyTaken) {
+            throw new Error('USERNAME_ALREADY_TAKEN');
+        }
 
         this.players.push({
-            joinState: joinCode.asState(),
+            joinState: join.asState(),
             status: 'CONNECTED',
         });
     }
@@ -58,14 +64,14 @@ export class Game {
         return this.status === 'NEW';
     }
 
-    startGame() {
+    startGame(task: Task) {
         this.status = 'STARTED';
-        this.calculation = Calculation.newCalculation().asState();
+        this.task = Calculation.newCalculation().asState();
     }
 
-    currentCalculation() {
-        if (this.calculation) {
-            return this.calculation;
+    currentTask() {
+        if (this.task) {
+            return this.task;
         }
         throw new Error(`This is not your fault. We are sorry. 
             Calculation is not set when it should be!`);
