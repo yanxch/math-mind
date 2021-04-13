@@ -1,7 +1,8 @@
-export abstract class Task {
-    static newTask(): Task;
+export interface Task {
     asState(): TaskState;
-    fromState(state: TaskState): Task;
+    isCorrect(taskState: TaskState): boolean;
 }
 
-export interface TaskState {}
+export interface TaskState {
+    [key: string]: any;
+}

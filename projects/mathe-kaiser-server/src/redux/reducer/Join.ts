@@ -3,6 +3,7 @@ import { Join } from '../model/Join';
 import { State } from '../state';
 import ws from 'ws';
 import { PayloadAction } from '@reduxjs/toolkit';
+import { Calculation } from '../model/Calculation';
 
 export type JoinedAction = {
     joinCode: string;
@@ -23,7 +24,7 @@ export function joinedLogic(state: State, action: PayloadAction<JoinedAction>) {
     game.addNewPlayer(joinCode);
 
     if (game.isNewGame()) {
-        game.startGame();
+        game.startGame(new Calculation());
     }
 
     state.games[gameCode] = game.asState();

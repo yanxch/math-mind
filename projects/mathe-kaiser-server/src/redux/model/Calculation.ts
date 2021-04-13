@@ -1,34 +1,32 @@
 import { randomDecimalNumber, randomIntegerNumber } from "../../utils/random";
 import { CalculationState } from "../state";
+import { Task, TaskState } from "./Task";
 
-export class Calculation {
-    private operator: string;
-    private calculation: any[];
-    private result: number;
 
-    private constructor({ operator, calculation, result }: CalculationState) {
-        this.operator = operator;
-        this.calculation = calculation;
-        this.result = result;
+export class Calculation implements Task {
+    private state: CalculationState;
+
+    constructor(state?: CalculationState) {
+        if (state) {
+            this.state = state;
+        } else {
+            this.state = this.newCalculationState();
+        }
     }
 
-    static newCalculation() {
+    newCalculationState(): CalculationState {
         const operator = '*';
-        const calculation = [ randomDecimalNumber(10, 1), operator, randomIntegerNumber(10) ];
+        const calculation = [randomDecimalNumber(10, 1), operator, randomIntegerNumber(10)];
         const result = eval(calculation.join(' '));
 
-        return new Calculation({ operator, calculation, result });
-    }
-
-    static fromState(state: CalculationState) {
-        return new Calculation(state);
+        return { operator, calculation, result };
     }
 
     asState(): CalculationState {
-        return {
-            calculation: this.calculation,
-            operator: this.operator,
-            result: this.result
-        };
+        return this.state;
+    }
+
+    isCorrect(taskState: TaskState) {
+        return false;
     }
 }

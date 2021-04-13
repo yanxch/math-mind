@@ -9,7 +9,7 @@ TODOS
 
 - Calculation als Objekt übergeben. Dann muss man nicht so behindert stubben.
 - Calculation erbt von Task. Task muss ein Interface definieren. 
- -- createTask
- -- asState
- -- fromState
- -- isCorrect
+ -- createTask - constr
+ -- asState (/)
+ -- fromState - constr
+ -- isCorrect (/)

@@ -74,9 +74,9 @@ describe('Game', () => {
 });
 
 function stubCalculation() {
-    sandbox.stub(Calculation, 'newCalculation').returns(Calculation.fromState({
+    sandbox.stub(Calculation, 'newCalculationState').returns({
         operator: '*',
         calculation: [0.5, '*', 7],
         result: 3.5
-    }));
+    });
 }

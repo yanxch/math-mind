@@ -55,9 +55,9 @@ describe('JoinReducerSpec', () => {
 });
 
 function stubCalculation() {
-    sandbox.stub(Calculation, 'newCalculation').returns(Calculation.fromState({
+    sandbox.stub(Calculation, 'newCalculationState').returns({
         operator: '*',
         calculation: [],
         result: 3
-    }));
+    });
 }

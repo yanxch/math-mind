@@ -1,4 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
+import { Calculation } from '../model/Calculation';
 import { Game } from '../model/Game';
 import { GameState, State } from '../state';
 
@@ -10,7 +11,7 @@ export function startGameLogic(
 ): State {
     const gameCode = action.payload.gameState.gameCode;
     const game = Game.fromState(action.payload.gameState);
-    game.startGame();
+    game.startGame(new Calculation());
 
     return {
         ...state,

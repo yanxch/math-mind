@@ -15,7 +15,7 @@ export interface GameState {
     task?: TaskState;
 }
 
-export interface CalculationState {
+export interface CalculationState extends TaskState {
     operator: string;
     calculation: any[];
     result: number;

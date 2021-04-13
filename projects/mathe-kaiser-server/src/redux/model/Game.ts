@@ -66,7 +66,7 @@ export class Game {
 
     startGame(task: Task) {
         this.status = 'STARTED';
-        this.task = Calculation.newCalculation().asState();
+        this.task = task.asState();
     }
 
     currentTask() {
