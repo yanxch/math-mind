@@ -14,6 +14,13 @@ TODOS
  -- fromState - constr
  -- isCorrect (/)
 
- - fix tests
+ - fix tests (/)
  -- only one test is executing..why? (weird mocha issue with glob patterns ... does not work quite well)
  ----> lol - the solution was. use single quotes
+
+ - write "Answer" - Task has to check "Answer"
+ - write test
+ - corect Answer -> new Calculation -> Praise
+ - wrong Answer -> no new Calucation -> store try
+
+ 
