@@ -13,3 +13,5 @@ TODOS
  -- asState (/)
  -- fromState - constr
  -- isCorrect (/)
+
+ - fix tests
