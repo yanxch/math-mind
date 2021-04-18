@@ -1,7 +1,6 @@
-import { randomDecimalNumber, randomIntegerNumber } from "../../utils/random";
-import { CalculationState } from "../state";
-import { Task, TaskState } from "./Task";
-
+import { randomDecimalNumber, randomIntegerNumber } from '../../utils/random';
+import { CalculationState } from '../state';
+import { Task, TaskState } from './Task';
 
 export class Calculation implements Task {
     private state: CalculationState;
@@ -10,13 +9,17 @@ export class Calculation implements Task {
         if (state) {
             this.state = state;
         } else {
-            this.state = this.newCalculationState();
+            this.state = Calculation.newCalculationState();
         }
     }
 
-    newCalculationState(): CalculationState {
+    static newCalculationState(): CalculationState {
         const operator = '*';
-        const calculation = [randomDecimalNumber(10, 1), operator, randomIntegerNumber(10)];
+        const calculation = [
+            randomDecimalNumber(10, 1),
+            operator,
+            randomIntegerNumber(10),
+        ];
         const result = eval(calculation.join(' '));
 
         return { operator, calculation, result };

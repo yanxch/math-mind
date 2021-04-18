@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "mathe-server": "nodemon projects/mathe-kaiser-server/src/index.ts",
-    "test-server": "cross-env TS_NODE_PROJECT='./projects/mathe-kaiser-server/tsconfig.json' mocha -r ts-node/register projects/mathe-kaiser-server/src/**/*.spec.ts"
+    "test-server": "cross-env TS_NODE_PROJECT='./projects/mathe-kaiser-server/tsconfig.json' mocha -r ts-node/register projects/mathe-kaiser-server/src/**/**/*.spec.ts"
   },
   "private": true,
   "dependencies": {

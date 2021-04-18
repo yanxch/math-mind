@@ -37,16 +37,16 @@ describe('JoinReducerSpec', () => {
                             joinState: {
                                 joinCode: 'mygamecode-hase',
                                 username: 'hase',
-                                gameCode: 'mygamecode'
+                                gameCode: 'mygamecode',
                             },
-                            status: 'CONNECTED'
+                            status: 'CONNECTED',
                         },
                     ],
                     status: 'STARTED',
-                    calculation: {
+                    task: {
                         calculation: [],
                         operator: '*',
-                        result: 3
+                        result: 3,
                     },
                 },
             },
@@ -58,6 +58,6 @@ function stubCalculation() {
     sandbox.stub(Calculation, 'newCalculationState').returns({
         operator: '*',
         calculation: [],
-        result: 3
+        result: 3,
     });
 }

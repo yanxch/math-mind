@@ -11,7 +11,7 @@ describe('CreateGameLogic', () => {
             games: {},
         };
         const gameCode = Game.newGameCode();
-        const action = createGame({ gameCode , username: 'hase' });
+        const action = createGame({ gameCode, username: 'hase' });
         // When
         const newState = createGameLogic(state, action);
         // Then
@@ -19,10 +19,10 @@ describe('CreateGameLogic', () => {
         expect(newState).to.deep.equal({
             games: {
                 [gameCode]: {
-                    calculation: undefined,
+                    task: undefined,
                     gameCode: gameCode,
                     players: [],
-                    status: 'NEW'
+                    status: 'NEW',
                 },
             },
         });
