@@ -16,3 +16,4 @@ TODOS
 
  - fix tests
  -- only one test is executing..why? (weird mocha issue with glob patterns ... does not work quite well)
+ ----> lol - the solution was. use single quotes
