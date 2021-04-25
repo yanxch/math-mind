@@ -1,5 +1,5 @@
-import { CalculationState, GameState, GameStatus, PlayerState } from '../state';
-import { Calculation } from './Calculation';
+import { GameState, GameStatus, PlayerState } from '../state';
+import { AnswerState } from './Answer';
 import { createGameCode } from './GameCode';
 import { Join } from './Join';
 import { Task, TaskState } from './Task';
@@ -39,8 +39,8 @@ export class Game {
     }
 
     addNewPlayer(join: Join) {
-        const {username} = join.asState();
-        
+        const { username } = join.asState();
+
         const isUsernameAlreadyTaken = this.players.some(p => p.joinState.username === username);
         if (isUsernameAlreadyTaken) {
             throw new Error('USERNAME_ALREADY_TAKEN');
@@ -48,6 +48,9 @@ export class Game {
 
         this.players.push({
             joinState: join.asState(),
+            playerGameState: {
+                points: 0
+            },
             status: 'CONNECTED',
         });
     }
@@ -58,6 +61,16 @@ export class Game {
 
     getPlayersCount() {
         return this.players.length;
+    }
+
+    getPlayerByUsername(username: string) {
+        const player = this.players.find(p => p.joinState.username === username);
+        if (!player) {
+            throw new Error(`Could not find player with username: ${username}, 
+                game: ${this.gameCode}`)
+        }
+
+        return player;
     }
 
     isNewGame() {
@@ -74,6 +87,15 @@ export class Game {
             return this.task;
         }
         throw new Error(`This is not your fault. We are sorry. 
-            Calculation is not set when it should be!`);
+            Task is not set when it should be!`);
+    }
+
+    isCorrectAnswer(answer: AnswerState) {
+        if (this.task) {
+            // will it work?
+            return new this.task.type(this.task).isCorrect(answer);
+        }
+
+        return false;
     }
 }

@@ -27,6 +27,7 @@ export type PlayerStatus = 'CONNECTED' | 'NOT_YET_CONNECTED' | 'CLOSED';
 
 export interface PlayerState {
     joinState: JoinState;
+    playerGameState: PlayerGameState;
     status: PlayerStatus;
 }
 
@@ -34,4 +35,9 @@ export interface JoinState {
     joinCode: string;
     username: string;
     gameCode: string;
+}
+
+export interface PlayerGameState {
+    points: number;
+    events?: any[];
 }
