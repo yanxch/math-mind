@@ -22,7 +22,7 @@ const storeSlice = createSlice({
 });
 
 export const { reducer, actions } = storeSlice;
-export const { createGame, joined, startGame, sendCaluclation } = actions;
+export const { createGame, joined, startGame, sendCaluclation, answer } = actions;
 export const store = configureStore({
     reducer,
     middleware: [sagaMiddleware],
