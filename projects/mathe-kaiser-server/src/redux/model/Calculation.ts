@@ -29,7 +29,7 @@ export class Calculation implements Task {
         return this.state;
     }
 
-    isCorrect(taskState: TaskState) {
-        return false;
+    isCorrect(calculationState: CalculationState) {
+        return (calculationState.result === this.state.result)
     }
 }

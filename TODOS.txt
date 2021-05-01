@@ -18,9 +18,11 @@ TODOS
  -- only one test is executing..why? (weird mocha issue with glob patterns ... does not work quite well)
  ----> lol - the solution was. use single quotes
 
- - write "Answer" - Task has to check "Answer"
- - write test
- - corect Answer -> new Calculation -> Praise
- - wrong Answer -> no new Calucation -> store try
+ - write "Answer" - Task has to check "Answer" (/)
+ - corect Answer -> new Calculation -> Praise (/)
+ - wrong Answer -> no new Calucation -> store try (x)
+ - write test AnswerLogic.spec.ts
+ - write test flow.spec
+
 
  
