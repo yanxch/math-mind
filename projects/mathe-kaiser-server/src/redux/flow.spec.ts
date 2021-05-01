@@ -48,6 +48,9 @@ describe('Game', () => {
                                 gameCode: 'mygamecode',
                                 username: 'hase1',
                             },
+                            playerGameState: {
+                                points: 0
+                            },
                             status: 'CONNECTED',
                         },
                         {
@@ -55,6 +58,9 @@ describe('Game', () => {
                                 joinCode: 'mygamecode-hase2',
                                 gameCode: 'mygamecode',
                                 username: 'hase2',
+                            },
+                            playerGameState: {
+                                points: 0
                             },
                             status: 'CONNECTED',
                         },

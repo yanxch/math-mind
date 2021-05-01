@@ -22,7 +22,7 @@ export class Calculation implements Task {
         ];
         const result = eval(calculation.join(' '));
 
-        return { operator, calculation, result };
+        return { operator, calculation, result, type: Calculation };
     }
 
     asState(): CalculationState {

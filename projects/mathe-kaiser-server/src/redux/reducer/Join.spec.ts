@@ -39,6 +39,9 @@ describe('JoinReducerSpec', () => {
                                 username: 'hase',
                                 gameCode: 'mygamecode',
                             },
+                            playerGameState: {
+                                points: 0
+                            },
                             status: 'CONNECTED',
                         },
                     ],
