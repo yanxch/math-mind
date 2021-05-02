@@ -92,7 +92,6 @@ export class Game {
 
     isCorrectAnswer(answer: AnswerState) {
         if (this.task) {
-            // will it work?
             return new this.task.type(this.task).isCorrect(answer);
         }
 

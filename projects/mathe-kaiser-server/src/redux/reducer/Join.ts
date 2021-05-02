@@ -19,7 +19,7 @@ export function joinedLogic(state: State, action: PayloadAction<JoinedAction>) {
 
     let game = gameState
         ? Game.fromState(gameState)
-        : Game.fromGameCode(gameCode);
+        : Game.fromGameCode(gameCode); // this is a new game? right?
 
     game.addNewPlayer(joinCode);
 
