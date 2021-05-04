@@ -49,7 +49,8 @@ describe('Game', () => {
                                 username: 'hase1',
                             },
                             playerGameState: {
-                                points: 0
+                                points: 0,
+                                events: []
                             },
                             status: 'CONNECTED',
                         },
@@ -60,7 +61,8 @@ describe('Game', () => {
                                 username: 'hase2',
                             },
                             playerGameState: {
-                                points: 0
+                                points: 0,
+                                events: []
                             },
                             status: 'CONNECTED',
                         },

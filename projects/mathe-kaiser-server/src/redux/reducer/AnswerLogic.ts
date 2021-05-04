@@ -13,12 +13,13 @@ export function answerLogic(state: State, action: PayloadAction<AnswerAction>) {
     const { username, gameCode, answer } = action.payload;
     const gameState = selectGameState(state, gameCode);
     const game = Game.fromState(gameState);
+    const player = game.getPlayerByUsername(username);
+
     if (game.isCorrectAnswer(answer)) {
-        const player = game.getPlayerByUsername(username);
         player.playerGameState.points += 10;
-        // TODO: save success event
+        // player.playerGameState.events?.push("CORRECT_ANSWER: " + new Date().toISOString());
     } else {
-        // TODO: save try event
+        // player.playerGameState.events?.push("INVALID_ANSWER: ", JSON.stringify(game.currentTask));
     }
 }
 

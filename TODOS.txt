@@ -21,8 +21,8 @@ TODOS
  - write "Answer" - Task has to check "Answer" (/)
  - corect Answer -> new Calculation -> Praise (/)
  - wrong Answer -> no new Calucation -> store try (x)
- - write test AnswerLogic.spec.ts
+ - write test AnswerLogic.spec.ts (/)
  - write test flow.spec
-
+ - test fixtures - fachliche
 
  

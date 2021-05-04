@@ -40,7 +40,8 @@ describe('JoinReducerSpec', () => {
                                 gameCode: 'mygamecode',
                             },
                             playerGameState: {
-                                points: 0
+                                points: 0,
+                                events: []
                             },
                             status: 'CONNECTED',
                         },

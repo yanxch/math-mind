@@ -49,7 +49,8 @@ export class Game {
         this.players.push({
             joinState: join.asState(),
             playerGameState: {
-                points: 0
+                points: 0,
+                events: []
             },
             status: 'CONNECTED',
         });
