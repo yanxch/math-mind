@@ -17,6 +17,7 @@ export function answerLogic(state: State, action: PayloadAction<AnswerAction>) {
 
     if (game.isCorrectAnswer(answer)) {
         player.playerGameState.points += 10;
+        // TODO: new Calculation on correct answer
         // player.playerGameState.events?.push("CORRECT_ANSWER: " + new Date().toISOString());
     } else {
         // player.playerGameState.events?.push("INVALID_ANSWER: ", JSON.stringify(game.currentTask));

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-import { joined, reducer } from '.';
+import { answer, joined, reducer } from '.';
 import { pureLogicSaga } from './saga';
 import { expect } from 'chai';
 import sinon from 'sinon';
@@ -77,6 +77,26 @@ describe('Game', () => {
             },
         });
     });
+
+    it('2 players join and play two rounds', () => {
+        // Given
+        const joinPlayer1 = joined({ joinCode: 'mygamecode-hase1' });
+        const joinPlayer2 = joined({ joinCode: 'mygamecode-hase2' });
+        const answerPlayer1 = answer({
+            username: 'hase1',
+            gameCode: 'mygamecode',
+            answer: {
+                operator: '*',
+                calculation: [0.5, '*', 7],
+                result: 3.5,
+            }
+        });
+        // When
+        store.dispatch(joinPlayer1);
+        store.dispatch(joinPlayer2);
+
+
+    })
 });
 
 function stubCalculation() {
