@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import { answer, joined, reducer } from '.';
 import { pureLogicSaga } from './saga';
@@ -6,18 +6,21 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import { Calculation } from './model/Calculation';
 
-const sagaMiddleware = createSagaMiddleware();
-export const store = configureStore({
-    reducer,
-    middleware: [sagaMiddleware],
-});
 
-sagaMiddleware.run(pureLogicSaga);
 
 let sandbox: any;
 
 describe('Game', () => {
+    let store: any;
+
     beforeEach(() => {
+        // setup redux
+        let sagaMiddleware = createSagaMiddleware();
+        store = configureStore({
+            reducer,
+            middleware: [sagaMiddleware],
+        });
+        sagaMiddleware.run(pureLogicSaga);
         // Stub
         sandbox = sinon.createSandbox();
         stubCalculation();
@@ -35,7 +38,6 @@ describe('Game', () => {
         store.dispatch(joinPlayer1);
         store.dispatch(joinPlayer2);
         // Then
-        console.log(JSON.stringify(store.getState(), null, 4));
         expect(store.getState()).not.null;
         expect(store.getState()).to.deep.equal({
             games: {
@@ -94,6 +96,7 @@ describe('Game', () => {
         // When
         store.dispatch(joinPlayer1);
         store.dispatch(joinPlayer2);
+        store.dispatch(answerPlayer1);
 
 
     })

@@ -1,5 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { AnswerState } from "../model/Answer";
+import { Calculation } from "../model/Calculation";
 import { Game } from "../model/Game";
 import { selectGame } from "../saga";
 import { State } from "../state";
@@ -17,10 +18,9 @@ export function answerLogic(state: State, action: PayloadAction<AnswerAction>) {
 
     if (game.isCorrectAnswer(answer)) {
         player.playerGameState.points += 10;
-        // TODO: new Calculation on correct answer
-        // player.playerGameState.events?.push("CORRECT_ANSWER: " + new Date().toISOString());
+        game.newTask(new Calculation()); // how to make this injectable? --> partial application --> TODO
     } else {
-        // player.playerGameState.events?.push("INVALID_ANSWER: ", JSON.stringify(game.currentTask));
+        // TBD
     }
 }
 

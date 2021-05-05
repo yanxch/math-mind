@@ -43,7 +43,7 @@ export class Game {
 
         const isUsernameAlreadyTaken = this.players.some(p => p.joinState.username === username);
         if (isUsernameAlreadyTaken) {
-            throw new Error('USERNAME_ALREADY_TAKEN');
+            throw new Error('USERNAME_ALREADY_TAKEN: ' + username);
         }
 
         this.players.push({
@@ -83,6 +83,10 @@ export class Game {
         this.task = task.asState();
     }
 
+    newTask(task: Task) {
+        this.task = task.asState();
+    }
+
     currentTask() {
         if (this.task) {
             return this.task;
@@ -93,6 +97,7 @@ export class Game {
 
     isCorrectAnswer(answer: AnswerState) {
         if (this.task) {
+            console.log(this.task);
             return new this.task.type(this.task).isCorrect(answer);
         }
 
