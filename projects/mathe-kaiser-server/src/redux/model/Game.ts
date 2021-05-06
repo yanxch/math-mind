@@ -84,6 +84,7 @@ export class Game {
     }
 
     newTask(task: Task) {
+        console.log('newTask:', task)
         this.task = task.asState();
     }
 

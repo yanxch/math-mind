@@ -1,6 +1,6 @@
 import { randomDecimalNumber, randomIntegerNumber } from '../../utils/random';
 import { CalculationState } from '../state';
-import { Task, TaskState } from './Task';
+import { Task } from './Task';
 
 export class Calculation implements Task {
     private state: CalculationState;

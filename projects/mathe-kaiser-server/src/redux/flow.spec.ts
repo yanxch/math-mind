@@ -1,9 +1,7 @@
-import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
-import createSagaMiddleware from 'redux-saga';
-import { answer, joined, reducer } from '.';
-import { pureLogicSaga } from './saga';
+import { configureStore } from '@reduxjs/toolkit';
 import { expect } from 'chai';
 import sinon from 'sinon';
+import { answer, joined, reducer } from '.';
 import { Calculation } from './model/Calculation';
 
 
@@ -15,12 +13,9 @@ describe('Game', () => {
 
     beforeEach(() => {
         // setup redux
-        let sagaMiddleware = createSagaMiddleware();
         store = configureStore({
-            reducer,
-            middleware: [sagaMiddleware],
+            reducer
         });
-        sagaMiddleware.run(pureLogicSaga);
         // Stub
         sandbox = sinon.createSandbox();
         stubCalculation();
