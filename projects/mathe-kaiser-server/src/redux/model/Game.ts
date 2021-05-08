@@ -1,5 +1,6 @@
-import { GameState, GameStatus, PlayerState } from '../state';
+import { CalculationState, GameState, GameStatus, PlayerState } from '../state';
 import { AnswerState } from './Answer';
+import { Calculation } from './Calculation';
 import { createGameCode } from './GameCode';
 import { Join } from './Join';
 import { Task, TaskState } from './Task';
@@ -84,7 +85,6 @@ export class Game {
     }
 
     newTask(task: Task) {
-        console.log('newTask:', task)
         this.task = task.asState();
     }
 
@@ -98,8 +98,8 @@ export class Game {
 
     isCorrectAnswer(answer: AnswerState) {
         if (this.task) {
-            console.log(this.task);
-            return new this.task.type(this.task).isCorrect(answer);
+            return new Calculation(this.task as CalculationState)
+                .isCorrect(answer as CalculationState);
         }
 
         return false;

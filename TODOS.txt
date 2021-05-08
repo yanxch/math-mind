@@ -22,7 +22,9 @@ TODOS
  - corect Answer -> new Calculation -> Praise (/)
  - wrong Answer -> no new Calucation -> store try (x)
  - write test AnswerLogic.spec.ts (/)
- - write test flow.spec
- - test fixtures - fachliche
+ - write test flow.spec (/)
+ - test fixtures - fachliche (/)
 
- -- FIX TEST!!
+ -- FIX TEST!! (/)
+
+ -- better abstraction for task, answer, calculation, calculationState

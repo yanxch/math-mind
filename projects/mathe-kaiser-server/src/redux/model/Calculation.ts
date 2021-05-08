@@ -1,6 +1,6 @@
 import { randomDecimalNumber, randomIntegerNumber } from '../../utils/random';
 import { CalculationState } from '../state';
-import { Task } from './Task';
+import { Task, TaskState } from './Task';
 
 export class Calculation implements Task {
     private state: CalculationState;
@@ -11,6 +11,10 @@ export class Calculation implements Task {
         } else {
             this.state = Calculation.newCalculationState();
         }
+    }
+
+    static fromState(state: TaskState) {
+        return new Calculation(state as CalculationState);
     }
 
     static newCalculationState(): CalculationState {
