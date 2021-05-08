@@ -2,6 +2,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { AnswerState } from "../model/Answer";
 import { Calculation } from "../model/Calculation";
 import { Game } from "../model/Game";
+import { Task } from "../model/Task";
 import { selectGame } from "../saga";
 import { State } from "../state";
 
@@ -10,7 +11,7 @@ export type AnswerAction = {
     gameCode: string;
     answer: AnswerState;
 };
-export function answerLogic(state: State, action: PayloadAction<AnswerAction>) {
+export const answerLogic = (taskFactory: TaskFactory) => (state: State, action: PayloadAction<AnswerAction>) => {
     const { username, gameCode, answer } = action.payload;
     const gameState = selectGameState(state, gameCode);
     const game = Game.fromState(gameState);
@@ -18,7 +19,7 @@ export function answerLogic(state: State, action: PayloadAction<AnswerAction>) {
 
     if (game.isCorrectAnswer(answer)) {
         player.playerGameState.points += 10;
-        game.newTask(new Calculation()); // how to make this injectable? --> partial application --> TODO
+        game.newTask(taskFactory.newTask());
     } else {
         // TBD
     }
@@ -26,4 +27,8 @@ export function answerLogic(state: State, action: PayloadAction<AnswerAction>) {
 
 export function selectGameState(state: State, gameCode: string) {
     return state.games[gameCode];
+}
+
+export interface TaskFactory {
+    newTask(): Task;
 }

@@ -6,6 +6,7 @@ import { startGameLogic } from './reducer/StartGame';
 import { sendCalculationLogic } from './reducer/SendCalculation';
 import { createGameLogic } from './reducer/CreateGame';
 import { answerLogic } from './reducer/AnswerLogic';
+import { Calculation } from './model/Calculation';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -16,7 +17,11 @@ const storeSlice = createSlice({
         createGame: createGameLogic,
         joined: joinedLogic,
         startGame: startGameLogic,
-        answer: answerLogic,
+        answer: answerLogic({
+            newTask() {
+                return new Calculation();
+            }
+        }),
         sendCaluclation: sendCalculationLogic,
     },
 });
