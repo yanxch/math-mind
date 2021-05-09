@@ -27,4 +27,6 @@ TODOS
 
  -- FIX TEST!! (/)
 
- -- better abstraction for task, answer, calculation, calculationState
+ -- better abstraction for task, answer, calculation, calculationState (-- delete unnecessary)
+ --- TaskFactory: injected via currying (/)
+ --- 

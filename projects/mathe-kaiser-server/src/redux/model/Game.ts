@@ -1,9 +1,8 @@
 import { CalculationState, GameState, GameStatus, PlayerState } from '../state';
-import { AnswerState } from './Answer';
 import { Calculation } from './Calculation';
 import { createGameCode } from './GameCode';
 import { Join } from './Join';
-import { Task, TaskState } from './Task';
+import { AnswerState, Task, TaskState } from './Task';
 
 export class Game {
     private gameCode: string;

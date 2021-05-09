@@ -1,9 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { AnswerState } from "../model/Answer";
-import { Calculation } from "../model/Calculation";
 import { Game } from "../model/Game";
-import { Task } from "../model/Task";
-import { selectGame } from "../saga";
+import { AnswerState, Task, TaskFactory } from "../model/Task";
 import { State } from "../state";
 
 export type AnswerAction = {
@@ -29,6 +26,3 @@ export function selectGameState(state: State, gameCode: string) {
     return state.games[gameCode];
 }
 
-export interface TaskFactory {
-    newTask(): Task;
-}

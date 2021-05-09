@@ -1,6 +1,6 @@
 import { randomDecimalNumber, randomIntegerNumber } from '../../utils/random';
 import { CalculationState } from '../state';
-import { Task, TaskState } from './Task';
+import { Task, TaskFactory, TaskState } from './Task';
 
 export class Calculation implements Task {
     private state: CalculationState;
@@ -35,5 +35,11 @@ export class Calculation implements Task {
 
     isCorrect(calculationState: CalculationState) {
         return (calculationState.result === this.state.result)
+    }
+}
+
+export class CalculationTaskFactory implements TaskFactory {
+    newTask(): Task {
+        return new Calculation();
     }
 }

@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { answer } from "..";
-import { Calculation } from "../model/Calculation";
-import { Task } from '../model/Task';
+import { Calculation, CalculationTaskFactory } from "../model/Calculation";
+import { Task, TaskFactory } from '../model/Task';
 import { State } from "../state";
-import { answerLogic, TaskFactory } from "./AnswerLogic";
+import { answerLogic } from "./AnswerLogic";
 
 describe('AnswerLogic', () => {
     it('answer correct', () => {
@@ -41,7 +41,7 @@ describe('AnswerLogic', () => {
                 result: 3.5
             }
         })
-        answerLogic(new MyTaskFactory())(state, answerAction);
+        answerLogic(new CalculationTaskFactory())(state, answerAction);
         // Then
         expect(state.games['mygamecode'].players[0].playerGameState.points).to.equal(10);
     });
@@ -81,16 +81,9 @@ describe('AnswerLogic', () => {
                 result: 3
             }
         })
-        answerLogic(new MyTaskFactory())(state, answerAction);
+        answerLogic(new CalculationTaskFactory())(state, answerAction);
         // Then
         expect(state.games['mygamecode'].players[0].playerGameState.points).to.equal(0);
     });
 
 });
-
-class MyTaskFactory implements TaskFactory {
-    newTask(): Task {
-        return new Calculation();
-    }
-
-}

@@ -1,12 +1,12 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-import { joinedLogic } from './reducer/Join';
-import { rootSaga } from './saga';
-import { startGameLogic } from './reducer/StartGame';
-import { sendCalculationLogic } from './reducer/SendCalculation';
-import { createGameLogic } from './reducer/CreateGame';
+import { CalculationTaskFactory } from './model/Calculation';
 import { answerLogic } from './reducer/AnswerLogic';
-import { Calculation } from './model/Calculation';
+import { createGameLogic } from './reducer/CreateGame';
+import { joinedLogic } from './reducer/Join';
+import { sendCalculationLogic } from './reducer/SendCalculation';
+import { startGameLogic } from './reducer/StartGame';
+import { rootSaga } from './saga';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -17,11 +17,7 @@ const storeSlice = createSlice({
         createGame: createGameLogic,
         joined: joinedLogic,
         startGame: startGameLogic,
-        answer: answerLogic({
-            newTask() {
-                return new Calculation();
-            }
-        }),
+        answer: answerLogic(new CalculationTaskFactory()),
         sendCaluclation: sendCalculationLogic,
     },
 });
