@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import { answer } from "..";
 import { Calculation, CalculationTaskFactory } from "../model/Calculation";
-import { Task, TaskFactory } from '../model/Task';
 import { State } from "../state";
 import { answerLogic } from "./AnswerLogic";
 

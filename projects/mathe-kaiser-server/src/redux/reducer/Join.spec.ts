@@ -1,23 +1,22 @@
+import { expect } from 'chai';
 import { joined } from '..';
+import { Calculation } from '../model/Calculation';
+import { Task, TaskFactory } from '../model/Task';
 import { State } from '../state';
 import { joinedLogic } from './Join';
-import { expect } from 'chai';
-import { Calculation } from '../model/Calculation';
-import * as sinon from 'sinon';
 
-let sandbox: any;
+class StubbedCalculationTaskFactory implements TaskFactory {
+    newTask(): Task {
+        return new Calculation({
+            operator: '*',
+            calculation: [],
+            result: 3,
+        })
+    }
+
+}
 
 describe('JoinReducerSpec', () => {
-    beforeEach(() => {
-        // Stub
-        sandbox = sinon.createSandbox();
-        stubCalculation();
-    });
-
-    afterEach(() => {
-        sandbox.restore();
-    });
-
     it('join new game', () => {
         // Given
         const state: State = {
@@ -25,7 +24,7 @@ describe('JoinReducerSpec', () => {
         };
         const action = joined({ joinCode: 'mygamecode-hase' });
         // When
-        joinedLogic(state, action);
+        joinedLogic(new StubbedCalculationTaskFactory())(state, action);
         // Then
         expect(state).not.null;
         expect(state).to.deep.equal({
@@ -57,11 +56,3 @@ describe('JoinReducerSpec', () => {
         });
     });
 });
-
-function stubCalculation() {
-    sandbox.stub(Calculation, 'newCalculationState').returns({
-        operator: '*',
-        calculation: [],
-        result: 3,
-    });
-}

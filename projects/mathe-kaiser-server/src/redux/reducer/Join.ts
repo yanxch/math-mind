@@ -1,31 +1,33 @@
+import { PayloadAction } from '@reduxjs/toolkit';
+import ws from 'ws';
 import { Game } from '../model/Game';
 import { Join } from '../model/Join';
+import { TaskFactory } from '../model/Task';
 import { State } from '../state';
-import ws from 'ws';
-import { PayloadAction } from '@reduxjs/toolkit';
-import { Calculation } from '../model/Calculation';
 
 export type JoinedAction = {
     joinCode: string;
     connection?: ws;
 };
 
-export function joinedLogic(state: State, action: PayloadAction<JoinedAction>) {
-    const joinCode = Join.fromString(
-        action.payload.joinCode
-    );
-    const gameCode = joinCode.getGameCode();
-    const gameState = state.games[gameCode];
+export function joinedLogic(taskFactory: TaskFactory) {
+    return (state: State, action: PayloadAction<JoinedAction>) => {
+        const joinCode = Join.fromString(
+            action.payload.joinCode
+        );
+        const gameCode = joinCode.getGameCode();
+        const gameState = state.games[gameCode];
 
-    let game = gameState
-        ? Game.fromState(gameState)
-        : Game.fromGameCode(gameCode); // this is a new game? right?
+        let game = gameState
+            ? Game.fromState(gameState)
+            : Game.fromGameCode(gameCode); // this is a new game? right?
 
-    game.addNewPlayer(joinCode);
+        game.addNewPlayer(joinCode);
 
-    if (game.isNewGame()) {
-        game.startGame(new Calculation());
-    }
+        if (game.isNewGame()) {
+            game.startGame(taskFactory.newTask());
+        }
 
-    state.games[gameCode] = game.asState();
+        state.games[gameCode] = game.asState();
+    };
 }

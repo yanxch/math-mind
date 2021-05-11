@@ -1,28 +1,45 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 import { expect } from 'chai';
-import sinon from 'sinon';
 import { answer, joined, reducer } from '.';
 import { Calculation } from './model/Calculation';
+import { Task, TaskFactory } from './model/Task';
+import { answerLogic } from './reducer/AnswerLogic';
+import { createGameLogic } from './reducer/CreateGame';
+import { joinedLogic } from './reducer/Join';
+import { sendCalculationLogic } from './reducer/SendCalculation';
+import { startGameLogic } from './reducer/StartGame';
 
+class StubbedCalculationTaskFactory implements TaskFactory {
+    newTask(): Task {
+        return new Calculation({
+            operator: '*',
+            calculation: [3, "*", 3],
+            result: 9,
+        })
+    }
 
+}
 
-let sandbox: any;
+const storeSlice = createSlice({
+    name: 'games',
+    initialState: { games: {} },
+    reducers: {
+        createGame: createGameLogic,
+        joined: joinedLogic(new StubbedCalculationTaskFactory()),
+        startGame: startGameLogic,
+        answer: answerLogic(new StubbedCalculationTaskFactory()),
+        sendCaluclation: sendCalculationLogic,
+    },
+});
 
-describe('Game', () => {
+describe('Game Flow', () => {
     let store: any;
 
     beforeEach(() => {
         // setup redux
         store = configureStore({
-            reducer
+            reducer: storeSlice.reducer
         });
-        // Stub
-        sandbox = sinon.createSandbox();
-        stubCalculation();
-    });
-
-    afterEach(() => {
-        sandbox.restore();
     });
 
     it('2 players join', () => {
@@ -67,8 +84,8 @@ describe('Game', () => {
                     status: 'STARTED',
                     task: {
                         operator: '*',
-                        calculation: [0.5, '*', 7],
-                        result: 3.5,
+                        calculation: [3, '*', 3],
+                        result: 9,
                     },
                 },
             },
@@ -96,11 +113,3 @@ describe('Game', () => {
 
     })
 });
-
-function stubCalculation() {
-    sandbox.stub(Calculation, 'newCalculationState').returns({
-        operator: '*',
-        calculation: [0.5, '*', 7],
-        result: 3.5,
-    });
-}

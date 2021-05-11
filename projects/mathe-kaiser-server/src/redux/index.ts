@@ -15,7 +15,7 @@ const storeSlice = createSlice({
     initialState: { games: {} },
     reducers: {
         createGame: createGameLogic,
-        joined: joinedLogic,
+        joined: joinedLogic(new CalculationTaskFactory()),
         startGame: startGameLogic,
         answer: answerLogic(new CalculationTaskFactory()),
         sendCaluclation: sendCalculationLogic,
