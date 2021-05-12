@@ -46,6 +46,7 @@ describe('Game Flow', () => {
         // Given
         const joinPlayer1 = joined({ joinCode: 'mygamecode-hase1' });
         const joinPlayer2 = joined({ joinCode: 'mygamecode-hase2' });
+        console.log(joinPlayer1);
         // When
         store.dispatch(joinPlayer1);
         store.dispatch(joinPlayer2);

@@ -1,10 +1,9 @@
 import express from 'express';
 import http from 'http';
-import ws from 'ws';
 import path from 'path';
-import { handleMessage } from './handlers';
-import { Message } from './models';
-import { joined, store } from './redux';
+import { AnyAction } from 'redux';
+import ws from 'ws';
+import { store } from './redux';
 
 const app = express();
 const port = process.env.PORT || 8080; // default port to listen
@@ -14,25 +13,24 @@ const server = http.createServer(app);
 const wss = new ws.Server({ server });
 wss.on('connection', function connection(connection) {
     connection.on('message', function incoming(message: string) {
-        const parsedMessage: Message<any> = JSON.parse(message);
+        const action: AnyAction = JSON.parse(message);
+        console.log('Got Action: ', action);
 
-        console.log('PARSED MESSAGE: ', parsedMessage);
-
-        store.dispatch(
-            joined({
-                joinCode: '123-1',
-                username: 'yanxi',
-                connection,
-            })
-        );
-
-        handleMessage(parsedMessage, connection);
-
-        connection.send(message);
+        store.dispatch(addConnection(action, connection));
     });
 
     connection.send(JSON.stringify({ type: 'CONNECTED' }));
 });
+
+function addConnection(action: AnyAction, connection: ws) {
+    return {
+        ...action,
+        payload: {
+            ...action.payload,
+            connection
+        }
+    };
+}
 
 app.use('/', express.static(path.resolve(__dirname + '../../../mathe-kaiser')));
 

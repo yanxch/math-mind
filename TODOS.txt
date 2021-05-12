@@ -29,6 +29,8 @@ TODOS
 
  -- better abstraction for task, answer, calculation, calculationState (-- delete unnecessary) (/)
  --- TaskFactory: injected via currying (/)
- --- rewrite tests to use factory instead of weird stub
+ --- rewrite tests to use factory instead of weird stub (/)
+
+ -- refactor express server to work with redux
 
  - connect client

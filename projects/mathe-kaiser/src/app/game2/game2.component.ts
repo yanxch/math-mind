@@ -117,7 +117,7 @@ export class Game2Component implements OnInit, OnDestroy {
     }
 
     sendCode(code) {
-        this.websocket$.next({ type: 'CODE', payload: code });
+        this.websocket$.next({ type: 'games/joined', payload: { joinCode: code } });
     }
 
     sendResult(result: string, code: string) {
