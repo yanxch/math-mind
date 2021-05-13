@@ -32,5 +32,7 @@ TODOS
  --- rewrite tests to use factory instead of weird stub (/)
 
  -- refactor express server to work with redux
+ --- step 1
+ --- > debug it
 
  - connect client

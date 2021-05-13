@@ -1,12 +1,13 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { fork, takeEvery } from 'redux-saga/effects';
+import { fork, takeEvery, select } from 'redux-saga/effects';
 import { joined, sendCaluclation } from '..';
 import { asJson } from '../../utils/ws-util';
 import { Game } from '../model/Game';
+import { Join } from '../model/Join';
 import { JoinedAction } from '../reducer/Join';
 import { SendCalculationAction } from '../reducer/SendCalculation';
 import { StartGameAction } from '../reducer/StartGame';
-import { State } from '../state';
+import { GameState, State } from '../state';
 import { connections } from './connections';
 
 export const selectGame = (gameCode: string) => (state: State) =>
@@ -20,11 +21,12 @@ function* saveConnectionEffect(action: PayloadAction<JoinedAction>) {
 }
 
 function* sendCalcuationEffect(
-    action:
-        | PayloadAction<StartGameAction>
-        | PayloadAction<SendCalculationAction>
+    action: PayloadAction<JoinedAction>
 ) {
-    const gameState = action.payload.gameState;
+    const join = Join.fromString(action.payload.joinCode);
+    const gameCode = join.getGameCode();
+
+    const gameState: GameState = yield select(selectGame(gameCode));
     const game = Game.fromState(gameState);
 
     game.getJoinCodes().forEach((joinCode) => {
@@ -42,7 +44,7 @@ export function* joinedSaga() {
 }
 
 export function* gameStartedSaga() {
-    yield takeEvery(sendCaluclation.type, sendCalcuationEffect);
+    // yield takeEvery(sendCaluclation.type, sendCalcuationEffect);
 }
 
 
