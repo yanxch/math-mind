@@ -61,7 +61,7 @@ export class Game2Component implements OnInit, OnDestroy {
                     tap((code) => (this.code = code))
                 )
                 .subscribe((code) => {
-                    this.sendCode(code);
+                    this.joind(code);
                 })
         );
 
@@ -116,7 +116,8 @@ export class Game2Component implements OnInit, OnDestroy {
         }
     }
 
-    sendCode(code) {
+    joind(code) {
+        // should this be triggered by redux?
         this.websocket$.next({ type: 'games/joined', payload: { joinCode: code } });
     }
 
