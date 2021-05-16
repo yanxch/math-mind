@@ -4,15 +4,25 @@ import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css'],
+    selector: 'AvatarLogin',
+    template: `
+        <nav class="bg-purple-800 p-6">
+            <div class="flex justify-center text-white">
+                <p class="text-2xl">
+                    Wähle deinen Avatar
+                </p>
+            </div>
+        </nav>
+        <main>
+            <AvatarsList></AvatarsList>
+        </main>
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
-    constructor(private stateService: StateService, private router: Router) {}
+    constructor(private stateService: StateService, private router: Router) { }
 
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 
     chooseAvatar(name: string) {
         console.log('Chose avatar: ', name);

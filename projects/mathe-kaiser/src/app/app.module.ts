@@ -19,6 +19,7 @@ import { DropdownComponent } from './game/dropdown/dropdown.component';
 import { HttpClientModule } from '@angular/common/http';
 import { InvitationComponent } from './invitation/invitation.component';
 import { Game2Component } from './game2/game2.component';
+import { AvatarsListComponentModule } from './components/avatars-list/avatars-list.component';
 
 export function windowFactory() {
     return window;
@@ -47,8 +48,9 @@ export function windowFactory() {
         ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: environment.production,
         }),
+        AvatarsListComponentModule
     ],
     providers: [{ provide: 'window', useFactory: windowFactory }],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
