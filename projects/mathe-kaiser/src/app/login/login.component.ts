@@ -1,17 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { StateService } from '../state/state.service';
-import { Route } from '@angular/compiler/src/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { StateService } from '../state/state.service';
 
 @Component({
     selector: 'AvatarLogin',
     template: `
-        <nav class="bg-purple-800 p-6">
-            <div class="flex justify-center text-white">
-                <p class="text-2xl">
-                    Wähle deinen Avatar
-                </p>
-            </div>
+        <nav>
+            <NavigationBar></NavigationBar>
         </nav>
         <main>
             <AvatarsList></AvatarsList>

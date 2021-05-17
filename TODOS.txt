@@ -41,3 +41,11 @@ TODOS
  -- access classes from server - reuse as much as possible -
  ---- everything expect middleware
  -- WebsocketService: takes action and dispatches it on the client :)
+
+
+ VIEW Refactorings:
+ - Login - Rename to Avatar
+ -- AvatarsList
+ ---- flex flex-wrap, margin, center -- does not belong into the component
+ - Avatar - Rename to Color
+ - 

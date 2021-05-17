@@ -20,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { InvitationComponent } from './invitation/invitation.component';
 import { Game2Component } from './game2/game2.component';
 import { AvatarsListComponentModule } from './components/avatars-list/avatars-list.component';
+import { NavigationBarComponentModule } from './components/navigation-bar/navigation-bar.component';
 
 export function windowFactory() {
     return window;
@@ -48,7 +49,9 @@ export function windowFactory() {
         ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: environment.production,
         }),
-        AvatarsListComponentModule
+        // SCAMS
+        AvatarsListComponentModule,
+        NavigationBarComponentModule
     ],
     providers: [{ provide: 'window', useFactory: windowFactory }],
     bootstrap: [AppComponent],
