@@ -21,6 +21,7 @@ import { InvitationComponent } from './invitation/invitation.component';
 import { Game2Component } from './game2/game2.component';
 import { AvatarsListComponentModule } from './components/avatars-list/avatars-list.component';
 import { NavigationBarComponentModule } from './components/navigation-bar/navigation-bar.component';
+import { UsernameInputComponentModule } from './components/username-input/username-input.component';
 
 export function windowFactory() {
     return window;
@@ -51,7 +52,8 @@ export function windowFactory() {
         }),
         // SCAMS
         AvatarsListComponentModule,
-        NavigationBarComponentModule
+        NavigationBarComponentModule,
+        UsernameInputComponentModule
     ],
     providers: [{ provide: 'window', useFactory: windowFactory }],
     bootstrap: [AppComponent],

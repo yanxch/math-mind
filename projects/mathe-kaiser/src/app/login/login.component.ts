@@ -10,6 +10,7 @@ import { StateService } from '../state/state.service';
         </nav>
         <main>
             <AvatarsList></AvatarsList>
+            <UsernameInput></UsernameInput>
         </main>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
