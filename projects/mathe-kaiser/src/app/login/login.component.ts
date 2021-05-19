@@ -9,7 +9,9 @@ import { StateService } from '../state/state.service';
             <NavigationBar></NavigationBar>
         </nav>
         <main>
-            <AvatarsList></AvatarsList>
+            <AvatarsList 
+                (selectedAvatar)="nextScreen($event)">
+            </AvatarsList>
             <UsernameInput></UsernameInput>
         </main>
     `,
@@ -20,8 +22,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit(): void { }
 
-    chooseAvatar(name: string) {
-        console.log('Chose avatar: ', name);
+    nextScreen(name: string) {
         this.stateService.setAvatar(name);
         this.router.navigate(['avatar']);
     }

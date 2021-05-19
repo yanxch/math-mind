@@ -1,4 +1,4 @@
-import { Component, NgModule } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, NgModule, Output } from "@angular/core";
 import { AngularKawaiiModule } from "angular-kawaii";
 
 @Component({
@@ -10,45 +10,45 @@ import { AngularKawaiiModule } from "angular-kawaii";
                 size="100"
                 mood="happy"
                 color="#A6E191"
-                (click)="chooseAvatar('planet')"
+                (click)="avatarSelected.next('planet')"
             ></Planet>
             <Backpack
                 class="p-10 hover:bg-green-400 cursor-pointer"
                 size="100"
                 mood="excited"
                 color="#FFD882"
-                (click)="chooseAvatar('backpack')"
+                (click)="avatarSelected.next('backpack')"
             ></Backpack>
             <Cat
                 class="p-10 hover:bg-green-400 cursor-pointer"
                 size="100"
                 mood="excited"
                 color="#596881"
-                (click)="chooseAvatar('cat')"
+                (click)="avatarSelected.next('cat')"
             ></Cat>
             <Ghost
                 class="p-10 hover:bg-green-400 cursor-pointer"
                 size="100"
                 mood="excited"
                 color="#E0E4E8"
-                (click)="chooseAvatar('ghost')"
+                (click)="avatarSelected.next('ghost')"
             ></Ghost>
             <IceCream
                 class="p-10 hover:bg-green-400 cursor-pointer"
                 size="100"
                 mood="blissful"
                 color="#FDA7DC"
-                (click)="chooseAvatar('icecream')"
+                (click)="avatarSelected.next('icecream')"
             ></IceCream>
         </div>
     `,
-    styles: [':host { display: block; }']
+    styles: [':host { display: block; }'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AvatarsListComponent {
 
-    chooseAvatar(avatarName: string) {
-        console.log(avatarName);
-    }
+    @Output()
+    avatarSelected = new EventEmitter<string>();
 }
 
 @NgModule({

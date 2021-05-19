@@ -46,7 +46,7 @@ TODOS
  VIEW Refactorings:
  - Login - Rename to Avatar
  -- AvatarsList
- ---- selection event
+ ---- selection event (/)
  ---- flex flex-wrap, margin, center -- does not belong into the component
  ---- random avatar selection
  ---- focus in username
