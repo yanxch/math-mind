@@ -12,12 +12,14 @@ import { StateService } from '../state/state.service';
             <AvatarsList 
                 (selectedAvatar)="nextScreen($event)">
             </AvatarsList>
-            <UsernameInput></UsernameInput>
+            <UsernameInput [(username)]="username"></UsernameInput>
         </main>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
+    username: string;
+
     constructor(private stateService: StateService, private router: Router) { }
 
     ngOnInit(): void { }

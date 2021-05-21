@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, OnChanges, OnDestroy, Output, SimpleChanges } from "@angular/core";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
+import { combineLatest, Subject } from "rxjs";
+import { flatMap, takeUntil } from "rxjs/operators";
 
 @Component({
     selector: 'UsernameInput',
@@ -14,7 +16,7 @@ import { FormControl, ReactiveFormsModule } from "@angular/forms";
     styles: [':host { display: flex; }'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UsernameInputComponent {
+export class UsernameInputComponent implements OnChanges, OnDestroy {
     usernameControl = new FormControl();
 
     @Input()
@@ -22,6 +24,27 @@ export class UsernameInputComponent {
 
     @Output()
     usernameChanged = new EventEmitter<string>();
+
+    destroy$ = new Subject();
+
+    constructor() {
+        this.usernameControl.valueChanges
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(value => {
+                this.usernameChanged.next(value);
+            })
+    }
+
+    ngOnChanges({ username }: SimpleChanges) {
+        if (username) {
+            this.usernameControl.setValue(username.currentValue);
+        }
+    }
+
+    ngOnDestroy() {
+        this.destroy$.next({});
+        this.destroy$.complete();
+    }
 }
 
 @NgModule({
