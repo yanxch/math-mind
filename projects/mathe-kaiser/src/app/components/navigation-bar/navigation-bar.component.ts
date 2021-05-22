@@ -1,4 +1,5 @@
 import { Component, NgModule } from "@angular/core";
+import { ButtonModule } from "../button/button.component";
 
 @Component({
     selector: 'NavigationBar',
@@ -9,6 +10,9 @@ import { Component, NgModule } from "@angular/core";
                     Wähle deinen Avatar
                 </p>
             </div>
+            <div class="flex justify-end">
+                <ActionButton>Let's go</ActionButton>
+            </div>
         </div>
     `
 })
@@ -17,6 +21,7 @@ export class NavigationBarComponent {
 }
 
 @NgModule({
+    imports: [ButtonModule],
     declarations: [NavigationBarComponent],
     exports: [NavigationBarComponent]
 })

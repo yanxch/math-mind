@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, OnChanges, OnDestroy, Output, SimpleChanges } from "@angular/core";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
-import { combineLatest, Subject } from "rxjs";
-import { flatMap, takeUntil } from "rxjs/operators";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
     selector: 'UsernameInput',
@@ -9,8 +9,8 @@ import { flatMap, takeUntil } from "rxjs/operators";
         <input
             [formControl]="usernameControl"
             type="text"
-            placeholder=""
-            class="p-10 min-w-full text-5xl shadow bg-green-500 bg-opacity-25 outline-none text-center"
+            placeholder="Username"
+            class="p-10 min-w-full text-5xl bg-green-500 bg-opacity-25 outline-none text-center"
         />
     `,
     styles: [':host { display: flex; }'],

@@ -4,7 +4,7 @@ import { AngularKawaiiModule } from "angular-kawaii";
 @Component({
     selector: 'AvatarsList',
     template: `
-        <div class="flex flex-wrap justify-center mt-10">
+        <div class="flex flex-wrap justify-center">
             <Planet
                 class="p-10 hover:bg-green-400 cursor-pointer"
                 size="100"

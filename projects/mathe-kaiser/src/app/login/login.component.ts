@@ -6,7 +6,9 @@ import { StateService } from '../state/state.service';
     selector: 'AvatarLogin',
     template: `
         <nav>
-            <NavigationBar></NavigationBar>
+            <NavigationBar>
+                
+            </NavigationBar>
         </nav>
         <main>
             <AvatarsList 
