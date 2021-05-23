@@ -4,15 +4,18 @@ import { ButtonModule } from "../button/button.component";
 @Component({
     selector: 'NavigationBar',
     template: `
-        <div class="bg-purple-800 p-6">
-            <div class="flex justify-center text-white">
+        <div class="bg-purple-800 p-6 grid flex">
+            
+            <ActionButton class="self-start">Let's go</ActionButton>
+            
+            <span class="text-white self-center">
                 <p class="text-2xl">
                     Wähle deinen Avatar
                 </p>
-            </div>
-            <div class="flex justify-end">
-                <ActionButton>Let's go</ActionButton>
-            </div>
+            </span>
+            
+            <ActionButton class="self-end">Let's go</ActionButton>
+            
         </div>
     `
 })

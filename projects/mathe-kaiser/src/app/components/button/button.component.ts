@@ -7,7 +7,7 @@ import { Component, NgModule } from "@angular/core";
             <ng-content></ng-content>
         </button>
     `,
-    styles: [':host { display: block; }']
+    styles: [''] // :host { display: flex; }
 })
 export class ButtonComponent {
 
