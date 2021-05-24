@@ -1,20 +1,24 @@
 import { Component, NgModule } from "@angular/core";
-import { ButtonModule } from "../button/button.component";
+import { ButtonModule } from "../action-button/action-button.component";
 
 @Component({
     selector: 'NavigationBar',
     template: `
-        <div class="bg-purple-800 p-6 grid flex">
+        <div class="bg-purple-800 p-6 flex justify-between">
             
-            <ActionButton class="self-start">Let's go</ActionButton>
+            <div>
+                <ng-content select="LeftActions"></ng-content>
+            </div>
             
             <span class="text-white self-center">
                 <p class="text-2xl">
-                    Wähle deinen Avatar
+                    <ng-content></ng-content>
                 </p>
             </span>
             
-            <ActionButton class="self-end">Let's go</ActionButton>
+            <div>
+                <ng-content select="RightActions"></ng-content>
+            </div>
             
         </div>
     `

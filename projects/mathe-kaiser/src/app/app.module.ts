@@ -8,7 +8,7 @@ import { NumberComponent } from './number/number.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent, LoginModule } from './login/login.component';
 import { GameComponent } from './game/game.component';
 
 import { AngularKawaiiModule } from 'angular-kawaii';
@@ -22,7 +22,7 @@ import { Game2Component } from './game2/game2.component';
 import { AvatarsListComponentModule } from './components/avatars-list/avatars-list.component';
 import { NavigationBarComponentModule } from './components/navigation-bar/navigation-bar.component';
 import { UsernameInputComponentModule } from './components/username-input/username-input.component';
-import { ButtonModule } from './components/button/button.component';
+import { ButtonModule } from './components/action-button/action-button.component';
 
 export function windowFactory() {
     return window;
@@ -32,7 +32,6 @@ export function windowFactory() {
     declarations: [
         AppComponent,
         NumberComponent,
-        LoginComponent,
         GameComponent,
         SuccessComponent,
         AvatarComponent,
@@ -55,7 +54,8 @@ export function windowFactory() {
         AvatarsListComponentModule,
         NavigationBarComponentModule,
         UsernameInputComponentModule,
-        ButtonModule
+        ButtonModule,
+        LoginModule
     ],
     providers: [{ provide: 'window', useFactory: windowFactory }],
     bootstrap: [AppComponent],
