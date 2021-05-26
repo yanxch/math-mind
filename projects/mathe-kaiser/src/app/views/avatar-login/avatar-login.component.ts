@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AvatarsListComponentModule } from '../components/avatars-list/avatars-list.component';
-import { ButtonModule } from '../components/action-button/action-button.component';
-import { NavigationBarComponentModule } from '../components/navigation-bar/navigation-bar.component';
-import { UsernameInputComponentModule } from '../components/username-input/username-input.component';
-import { StateService } from '../state/state.service';
-import { ButtonBoxComponentModule } from '../components/button-box/buttons.component';
+import { AvatarsListComponentModule } from '../../components/avatars-list/avatars-list.component';
+import { ButtonModule } from '../../components/action-button/action-button.component';
+import { NavigationBarComponentModule } from '../../components/navigation-bar/navigation-bar.component';
+import { UsernameInputComponentModule } from '../../components/username-input/username-input.component';
+import { StateService } from '../../state/state.service';
+import { ButtonBoxComponentModule } from '../../components/button-box/buttons.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'AvatarLogin',
@@ -19,7 +20,8 @@ import { ButtonBoxComponentModule } from '../components/button-box/buttons.compo
                 </LeftActions>
                 Wähle deinen Avatar
                 <RightActions>
-                    <!--ActionButton>Let's go</ActionButton-->
+                <!-- Change does not work yet -->
+                    <ActionButton *ngIf="username">Let's go</ActionButton>
                 </RightActions>
             </NavigationBar>
         </nav>
@@ -30,10 +32,10 @@ import { ButtonBoxComponentModule } from '../components/button-box/buttons.compo
             <UsernameInput [(username)]="username"></UsernameInput>
         </main>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class LoginComponent implements OnInit {
-    username: string;
+    username: string = '';
 
     constructor(private stateService: StateService, private router: Router) { }
 
@@ -47,6 +49,7 @@ export class LoginComponent implements OnInit {
 
 @NgModule({
     imports: [
+        CommonModule,
         NavigationBarComponentModule,
         AvatarsListComponentModule,
         UsernameInputComponentModule,
