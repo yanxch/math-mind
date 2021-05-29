@@ -31,7 +31,6 @@ export class UsernameInputComponent implements OnChanges, OnDestroy {
         this.usernameControl.valueChanges
             .pipe(takeUntil(this.destroy$))
             .subscribe(value => {
-                console.log('UM changed');
                 this.usernameChanged.emit(value);
             })
     }

@@ -1,4 +1,4 @@
-import { Component, NgModule } from "@angular/core";
+import { ChangeDetectionStrategy, Component, NgModule } from "@angular/core";
 import { ButtonModule } from "../action-button/action-button.component";
 
 @Component({
@@ -21,7 +21,8 @@ import { ButtonModule } from "../action-button/action-button.component";
             </div>
             
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavigationBarComponent {
 

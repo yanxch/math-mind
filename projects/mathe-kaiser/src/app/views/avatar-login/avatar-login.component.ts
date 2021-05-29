@@ -29,10 +29,14 @@ import { CommonModule } from '@angular/common';
             <AvatarsList 
                 (selectedAvatar)="nextScreen($event)">
             </AvatarsList>
-            <UsernameInput [(username)]="username"></UsernameInput>
+            <!-- weirdly enough banana in a box does not trigger change-detection in nav bar??-->
+            <UsernameInput 
+                [username]="username" 
+                (usernameChanged)="usernameChanged($event)">
+            </UsernameInput>
         </main>
     `,
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit {
     username: string = '';
@@ -44,6 +48,10 @@ export class LoginComponent implements OnInit {
     nextScreen(name: string) {
         this.stateService.setAvatar(name);
         this.router.navigate(['avatar']);
+    }
+
+    usernameChanged(u: string) {
+        this.username = u;
     }
 }
 
