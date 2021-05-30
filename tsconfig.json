@@ -17,7 +17,10 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@server/math-mind": ["projects/mathe-kaiser-server/src/public-api"]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

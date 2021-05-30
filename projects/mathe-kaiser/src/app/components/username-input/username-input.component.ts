@@ -1,7 +1,17 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, OnChanges, OnDestroy, Output, SimpleChanges } from "@angular/core";
-import { FormControl, ReactiveFormsModule } from "@angular/forms";
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    NgModule,
+    OnChanges,
+    OnDestroy,
+    Output,
+    SimpleChanges,
+} from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'UsernameInput',
@@ -9,18 +19,21 @@ import { takeUntil } from "rxjs/operators";
         <input
             [formControl]="usernameControl"
             type="text"
-            placeholder="Username"
+            [placeholder]="placeholder"
             class="p-10 min-w-full text-5xl bg-green-500 bg-opacity-25 outline-none text-center"
         />
     `,
     styles: [':host { display: flex; }'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsernameInputComponent implements OnChanges, OnDestroy {
     usernameControl = new FormControl();
 
     @Input()
     username: string;
+
+    @Input()
+    placeholder: string = '';
 
     @Output()
     usernameChanged = new EventEmitter<string>();
@@ -30,9 +43,9 @@ export class UsernameInputComponent implements OnChanges, OnDestroy {
     constructor() {
         this.usernameControl.valueChanges
             .pipe(takeUntil(this.destroy$))
-            .subscribe(value => {
+            .subscribe((value) => {
                 this.usernameChanged.emit(value);
-            })
+            });
     }
 
     ngOnChanges({ username }: SimpleChanges) {
@@ -50,8 +63,6 @@ export class UsernameInputComponent implements OnChanges, OnDestroy {
 @NgModule({
     imports: [ReactiveFormsModule],
     declarations: [UsernameInputComponent],
-    exports: [UsernameInputComponent]
+    exports: [UsernameInputComponent],
 })
-export class UsernameInputComponentModule {
-
-}
+export class UsernameInputComponentModule {}

@@ -2,7 +2,10 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/app",
-    "types": []
+    "types": [],
+    "paths": {
+      "@server/math-mind": ["projects/mathe-kaiser-server/src/public-api"]
+    }
   },
   "files": [
     "src/main.ts",

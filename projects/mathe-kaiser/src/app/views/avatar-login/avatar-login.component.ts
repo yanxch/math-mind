@@ -1,12 +1,19 @@
-import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    NgModule,
+    NO_ERRORS_SCHEMA,
+    OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { AvatarsListComponentModule } from '../../components/avatars-list/avatars-list.component';
+import { randomReadableWord } from '@server/math-mind';
 import { ButtonModule } from '../../components/action-button/action-button.component';
+import { AvatarsListComponentModule } from '../../components/avatars-list/avatars-list.component';
+import { ButtonBoxComponentModule } from '../../components/button-box/buttons.component';
 import { NavigationBarComponentModule } from '../../components/navigation-bar/navigation-bar.component';
 import { UsernameInputComponentModule } from '../../components/username-input/username-input.component';
 import { StateService } from '../../state/state.service';
-import { ButtonBoxComponentModule } from '../../components/button-box/buttons.component';
-import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'AvatarLogin',
@@ -15,35 +22,34 @@ import { CommonModule } from '@angular/common';
             <NavigationBar>
                 <LeftActions>
                     <ButtonBox>
-                        <!--ActionButton>Back</ActionButton-->
-                    </ButtonBox>  
+                        <ActionButton [show]="false">Back</ActionButton>
+                    </ButtonBox>
                 </LeftActions>
                 Wähle deinen Avatar
                 <RightActions>
-                <!-- Change does not work yet -->
-                    <ActionButton *ngIf="username">Let's go</ActionButton>
+                    <ActionButton [show]="username">Let's go</ActionButton>
                 </RightActions>
             </NavigationBar>
         </nav>
         <main>
-            <AvatarsList 
-                (selectedAvatar)="nextScreen($event)">
-            </AvatarsList>
+            <AvatarsList (selectedAvatar)="nextScreen($event)"> </AvatarsList>
             <!-- weirdly enough banana in a box does not trigger change-detection in nav bar??-->
-            <UsernameInput 
-                [username]="username" 
-                (usernameChanged)="usernameChanged($event)">
+            <UsernameInput
+                [username]="username"
+                placeholder="Username"
+                (usernameChanged)="usernameChanged($event)"
+            >
             </UsernameInput>
         </main>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
-    username: string = '';
+    username = randomReadableWord(5);
 
-    constructor(private stateService: StateService, private router: Router) { }
+    constructor(private stateService: StateService, private router: Router) {}
 
-    ngOnInit(): void { }
+    ngOnInit(): void {}
 
     nextScreen(name: string) {
         this.stateService.setAvatar(name);
@@ -62,10 +68,10 @@ export class LoginComponent implements OnInit {
         AvatarsListComponentModule,
         UsernameInputComponentModule,
         ButtonModule,
-        ButtonBoxComponentModule
+        ButtonBoxComponentModule,
     ],
     declarations: [LoginComponent],
     exports: [LoginComponent],
-    schemas: [NO_ERRORS_SCHEMA]
+    schemas: [NO_ERRORS_SCHEMA],
 })
-export class LoginModule { }
+export class LoginModule {}

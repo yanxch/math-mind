@@ -1,4 +1,4 @@
-import { TaskState } from "./model/Task";
+import { TaskState } from './model/Task';
 
 export type Games = {
     [gameCode: string]: GameState;
@@ -27,8 +27,8 @@ export type PlayerStatus = 'CONNECTED' | 'NOT_YET_CONNECTED' | 'CLOSED';
 
 export interface PlayerState {
     joinState: JoinState;
-    playerGameState: PlayerGameState;
     status: PlayerStatus;
+    playerGameState: PlayerGameState;
 }
 
 export interface JoinState {

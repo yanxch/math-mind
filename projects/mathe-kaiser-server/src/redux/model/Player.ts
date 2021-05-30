@@ -1,14 +1,19 @@
-import { JoinState, PlayerState, PlayerStatus } from "../state";
+import {
+    JoinState,
+    PlayerGameState,
+    PlayerState,
+    PlayerStatus,
+} from '../state';
 
 export class Player {
-    private username: string;
     private joinState: JoinState;
     private status: PlayerStatus;
+    private playerGameState: PlayerGameState;
 
-    private constructor({username, joinState, status}: PlayerState) {
-        this.username = username;
+    private constructor({ joinState, status, playerGameState }: PlayerState) {
         this.joinState = joinState;
         this.status = status;
+        this.playerGameState = playerGameState;
     }
 
     static fromState(state: PlayerState) {
@@ -17,9 +22,9 @@ export class Player {
 
     asState(): PlayerState {
         return {
-            username: this.username,
             joinState: this.joinState,
-            status: this.status
+            status: this.status,
+            playerGameState: this.playerGameState,
         };
     }
 }
