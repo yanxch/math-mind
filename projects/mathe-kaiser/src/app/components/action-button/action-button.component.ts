@@ -1,4 +1,4 @@
-import { Component, Input, NgModule } from '@angular/core';
+import { Component, Input, NgModule, Output } from '@angular/core';
 
 @Component({
     selector: 'ActionButton',
@@ -21,4 +21,4 @@ export class ButtonComponent {
     declarations: [ButtonComponent],
     exports: [ButtonComponent],
 })
-export class ButtonModule {}
+export class ButtonModule { }

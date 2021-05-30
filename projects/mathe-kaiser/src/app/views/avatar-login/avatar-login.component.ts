@@ -27,12 +27,17 @@ import { StateService } from '../../state/state.service';
                 </LeftActions>
                 Wähle deinen Avatar
                 <RightActions>
-                    <ActionButton [show]="username">Let's go</ActionButton>
+                    <ActionButton [show]="showNextAction" (click)="nextScreen()">
+                        Let's go
+                    </ActionButton>
                 </RightActions>
             </NavigationBar>
         </nav>
         <main>
-            <AvatarsList (selectedAvatar)="nextScreen($event)"> </AvatarsList>
+            <AvatarsList 
+                [selected]="avatar"
+                (avatarSelected)="setAvatar($event)">
+            </AvatarsList>
             <!-- weirdly enough banana in a box does not trigger change-detection in nav bar??-->
             <UsernameInput
                 [username]="username"
@@ -46,18 +51,30 @@ import { StateService } from '../../state/state.service';
 })
 export class LoginComponent implements OnInit {
     username = randomReadableWord(5);
+    avatar = '';
+    showNextAction = false;
 
-    constructor(private stateService: StateService, private router: Router) {}
+    constructor(private stateService: StateService, private router: Router) { }
 
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 
-    nextScreen(name: string) {
+    setAvatar(name: string) {
+        this.avatar = name;
         this.stateService.setAvatar(name);
-        this.router.navigate(['avatar']);
+        if (this.username) {
+            this.showNextAction = true;
+        }
     }
 
     usernameChanged(u: string) {
         this.username = u;
+        if (this.avatar) {
+            this.showNextAction = true;
+        }
+    }
+
+    nextScreen() {
+        this.router.navigate(['avatar']);
     }
 }
 
@@ -74,4 +91,4 @@ export class LoginComponent implements OnInit {
     exports: [LoginComponent],
     schemas: [NO_ERRORS_SCHEMA],
 })
-export class LoginModule {}
+export class LoginModule { }
