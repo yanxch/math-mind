@@ -9,10 +9,14 @@ import {
 import { Router } from '@angular/router';
 import { randomReadableWord } from '@server/math-mind';
 import { ButtonModule } from '../../components/action-button/action-button.component';
-import { AvatarsListComponentModule } from '../../components/avatars-list/avatars-list.component';
+import {
+    AVAILABLE_AVATARS,
+    AvatarsListComponentModule,
+} from '../../components/avatars-list/avatars-list.component';
 import { ButtonBoxComponentModule } from '../../components/button-box/buttons.component';
 import { NavigationBarComponentModule } from '../../components/navigation-bar/navigation-bar.component';
 import { UsernameInputComponentModule } from '../../components/username-input/username-input.component';
+import { randomIntegerNumber } from '../../random';
 import { StateService } from '../../state/state.service';
 
 @Component({
@@ -27,16 +31,20 @@ import { StateService } from '../../state/state.service';
                 </LeftActions>
                 Wähle deinen Avatar
                 <RightActions>
-                    <ActionButton [show]="showNextAction" (click)="nextScreen()">
+                    <ActionButton
+                        [show]="showNextAction"
+                        (click)="nextScreen()"
+                    >
                         Let's go
                     </ActionButton>
                 </RightActions>
             </NavigationBar>
         </nav>
         <main>
-            <AvatarsList 
+            <AvatarsList
                 [selected]="avatar"
-                (avatarSelected)="setAvatar($event)">
+                (avatarSelected)="setAvatar($event)"
+            >
             </AvatarsList>
             <!-- weirdly enough banana in a box does not trigger change-detection in nav bar??-->
             <UsernameInput
@@ -52,11 +60,14 @@ import { StateService } from '../../state/state.service';
 export class LoginComponent implements OnInit {
     username = randomReadableWord(5);
     avatar = '';
-    showNextAction = false;
+    showNextAction = true;
 
-    constructor(private stateService: StateService, private router: Router) { }
+    constructor(private stateService: StateService, private router: Router) {}
 
-    ngOnInit(): void { }
+    ngOnInit(): void {
+        const number = randomIntegerNumber(AVAILABLE_AVATARS.length);
+        this.avatar = AVAILABLE_AVATARS[number];
+    }
 
     setAvatar(name: string) {
         this.avatar = name;
@@ -91,4 +102,4 @@ export class LoginComponent implements OnInit {
     exports: [LoginComponent],
     schemas: [NO_ERRORS_SCHEMA],
 })
-export class LoginModule { }
+export class LoginModule {}

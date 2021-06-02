@@ -1,5 +1,20 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Output } from "@angular/core";
-import { AngularKawaiiModule } from "angular-kawaii";
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    NgModule,
+    Output,
+} from '@angular/core';
+import { AngularKawaiiModule } from 'angular-kawaii';
+
+export const AVAILABLE_AVATARS = [
+    'planet',
+    'backpack',
+    'cat',
+    'ghost',
+    'icecream',
+];
 
 @Component({
     selector: 'AvatarsList',
@@ -48,10 +63,9 @@ import { AngularKawaiiModule } from "angular-kawaii";
         </div>
     `,
     styles: [':host { display: block; }'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AvatarsListComponent {
-
     @Input()
     selected: string;
 
@@ -66,8 +80,6 @@ export class AvatarsListComponent {
 @NgModule({
     imports: [AngularKawaiiModule],
     declarations: [AvatarsListComponent],
-    exports: [AvatarsListComponent]
+    exports: [AvatarsListComponent],
 })
-export class AvatarsListComponentModule {
-
-}
+export class AvatarsListComponentModule {}
