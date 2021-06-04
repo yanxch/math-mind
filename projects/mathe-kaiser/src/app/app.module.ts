@@ -8,7 +8,7 @@ import { NumberComponent } from './number/number.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { LoginComponent, LoginModule } from './views/avatar-login/avatar-login.component';
+import { JoinComponent, LoginModule } from './views/join/join.component';
 import { GameComponent } from './game/game.component';
 
 import { AngularKawaiiModule } from 'angular-kawaii';

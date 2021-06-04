@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { GameComponent } from './game/game.component';
-import { LoginComponent } from './views/avatar-login/avatar-login.component';
+import { JoinComponent } from './views/join/join.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { InvitationComponent } from './invitation/invitation.component';
 import { Game2Component } from './game2/game2.component';
@@ -16,8 +16,8 @@ const routes: Routes = [
         component: Game2Component,
     },
     {
-        path: 'login',
-        component: LoginComponent,
+        path: 'join',
+        component: JoinComponent,
     },
     {
         path: 'avatar',
@@ -29,7 +29,7 @@ const routes: Routes = [
     },
     {
         path: '**',
-        redirectTo: 'login',
+        redirectTo: 'join',
     },
 ];
 

@@ -17,6 +17,7 @@ import { takeUntil } from 'rxjs/operators';
     selector: 'UsernameInput',
     template: `
         <input
+            autofocus
             [formControl]="usernameControl"
             type="text"
             [placeholder]="placeholder"
@@ -65,4 +66,4 @@ export class UsernameInputComponent implements OnChanges, OnDestroy {
     declarations: [UsernameInputComponent],
     exports: [UsernameInputComponent],
 })
-export class UsernameInputComponentModule {}
+export class UsernameInputComponentModule { }

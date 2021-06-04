@@ -5,58 +5,21 @@
 </nav>
 <div class="w-screen bg-green-200 content">
     <div>
-        <div class="flex flex-wrap justify-center pt-10">
-            <div
-                *ngFor="let color of colors"
-                class="w-10 h-10 rounded border-gray-400 hover:border-purple-800 border-2 m-2 cursor-pointer"
-                [style.backgroundColor]="color"
-                (click)="chooseColor(color)"
-            ></div>
-        </div>
 
-        <div
-            *ngIf="avatar$ | async as avatar"
-            class="flex flex-wrap justify-center pt-10"
-        >
-            <Planet
-                *ngIf="avatar === 'planet'"
-                size="100"
-                mood="happy"
-                [color]="selectedColor"
-            ></Planet>
-            <Backpack
-                *ngIf="avatar === 'backpack'"
-                size="100"
-                mood="excited"
-                [color]="selectedColor"
-            ></Backpack>
-            <Cat
-                *ngIf="avatar === 'cat'"
-                size="100"
-                mood="excited"
-                [color]="selectedColor"
-            ></Cat>
-            <Ghost
-                *ngIf="avatar === 'ghost'"
-                size="100"
-                mood="excited"
-                [color]="selectedColor"
-            ></Ghost>
-            <IceCream
-                *ngIf="avatar === 'icecream'"
-                size="100"
-                mood="blissful"
-                [color]="selectedColor"
-            ></IceCream>
+
+        <div *ngIf="avatar$ | async as avatar" class="flex flex-wrap justify-center pt-10">
+            <Planet *ngIf="avatar === 'planet'" size="100" mood="happy" [color]="selectedColor"></Planet>
+            <Backpack *ngIf="avatar === 'backpack'" size="100" mood="excited" [color]="selectedColor"></Backpack>
+            <Cat *ngIf="avatar === 'cat'" size="100" mood="excited" [color]="selectedColor"></Cat>
+            <Ghost *ngIf="avatar === 'ghost'" size="100" mood="excited" [color]="selectedColor"></Ghost>
+            <IceCream *ngIf="avatar === 'icecream'" size="100" mood="blissful" [color]="selectedColor"></IceCream>
         </div>
 
         <div class="flex justify-center pt-10">
             <div class="mt-4">
-                <a
-                    routerLink="/game"
-                    class="p-3 rounded-lg inline-block bg-purple-800 hover:bg-purple-500 cursor-pointer text-white"
-                    >Zum Spiel</a
-                >
+                <a routerLink="/game"
+                    class="p-3 rounded-lg inline-block bg-purple-800 hover:bg-purple-500 cursor-pointer text-white">Zum
+                    Spiel</a>
             </div>
         </div>
     </div>

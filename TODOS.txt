@@ -47,12 +47,15 @@ TODOS
  - Login - Rename to Avatar
  -- AvatarsList
  ---- selection event (/)
- ---- flex flex-wrap, margin, center -- does not belong into the component +++ accepted for now
- ---- random avatar selection
+ ---- flex flex-wrap, margin, center -- does not belong into the component +++ accepted for now (/)
+ ---- random avatar selection (/)
  ---- focus in username
  ---- same color for input and selection
  ------ opacity vom hintergrund ändern aber nicht vom svg
 
 
  - Avatar - Rename to Color
- - 
+ -- move color to login-screen
+
+ -- create a start game action 
+ --- creating a joincode

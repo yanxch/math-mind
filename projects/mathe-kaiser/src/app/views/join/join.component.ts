@@ -46,6 +46,14 @@ import { StateService } from '../../state/state.service';
                 (avatarSelected)="setAvatar($event)"
             >
             </AvatarsList>
+            <div class="flex flex-wrap justify-center">
+                <div
+                    *ngFor="let color of colors"
+                    class="w-10 h-10 rounded border-gray-400 hover:border-purple-800 border-2 m-2 cursor-pointer"
+                    [style.backgroundColor]="color"
+                    (click)="chooseColor(color)"
+                ></div>
+            </div>
             <!-- weirdly enough banana in a box does not trigger change-detection in nav bar??-->
             <UsernameInput
                 [username]="username"
@@ -57,12 +65,27 @@ import { StateService } from '../../state/state.service';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnInit {
+export class JoinComponent implements OnInit {
     username = randomReadableWord(5);
     avatar = '';
     showNextAction = true;
+    colors = [
+        '#ED3B15',
+        '#F7B52B',
+        '#1CC564',
+        '#D3F72B',
+        '#6DF72B',
+        '#2BF74F',
+        '#2BF7B5',
+        '#2BC6F7',
+        '#2B60F7',
+        '#C22BF7',
+        '#F72BC6',
+    ];
+    selectedColor = '#ED3B15';
 
-    constructor(private stateService: StateService, private router: Router) {}
+
+    constructor(private stateService: StateService, private router: Router) { }
 
     ngOnInit(): void {
         const number = randomIntegerNumber(AVAILABLE_AVATARS.length);
@@ -84,6 +107,11 @@ export class LoginComponent implements OnInit {
         }
     }
 
+    chooseColor(color: string) {
+        this.selectedColor = color;
+        this.stateService.setAvatarColor(color);
+    }
+
     nextScreen() {
         this.router.navigate(['avatar']);
     }
@@ -98,8 +126,8 @@ export class LoginComponent implements OnInit {
         ButtonModule,
         ButtonBoxComponentModule,
     ],
-    declarations: [LoginComponent],
-    exports: [LoginComponent],
+    declarations: [JoinComponent],
+    exports: [JoinComponent],
     schemas: [NO_ERRORS_SCHEMA],
 })
-export class LoginModule {}
+export class LoginModule { }
