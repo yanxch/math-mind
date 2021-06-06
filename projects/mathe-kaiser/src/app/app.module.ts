@@ -23,6 +23,7 @@ import { AvatarsListComponentModule } from './components/avatars-list/avatars-li
 import { NavigationBarComponentModule } from './components/navigation-bar/navigation-bar.component';
 import { UsernameInputComponentModule } from './components/username-input/username-input.component';
 import { ButtonModule } from './components/action-button/action-button.component';
+import { ChooseColorModule } from './components/choose-color/choose-color.component';
 
 export function windowFactory() {
     return window;
@@ -55,9 +56,9 @@ export function windowFactory() {
         NavigationBarComponentModule,
         UsernameInputComponentModule,
         ButtonModule,
-        LoginModule
+        LoginModule,
     ],
     providers: [{ provide: 'window', useFactory: windowFactory }],
     bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

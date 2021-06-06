@@ -62,7 +62,7 @@ export const AVAILABLE_AVATARS = [
             ></IceCream>
         </div>
     `,
-    styles: [':host { display: block; }'],
+    styles: [],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AvatarsListComponent {

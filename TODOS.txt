@@ -54,8 +54,11 @@ TODOS
  ------ opacity vom hintergrund ändern aber nicht vom svg
 
 
- - Avatar - Rename to Color
- -- move color to login-screen
+ - Avatar - Rename to Join Screen
+ -- move color to join-screen
 
  -- create a start game action 
  --- creating a joincode
+
+
++ Mobile Responsiveness - not really 
