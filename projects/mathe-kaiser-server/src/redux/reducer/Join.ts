@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import ws from 'ws';
+import * as ws from 'ws';
 import { Game } from '../model/Game';
 import { Join } from '../model/Join';
 import { TaskFactory } from '../model/Task';
@@ -12,9 +12,7 @@ export type JoinedAction = {
 
 export function joinedLogic(taskFactory: TaskFactory) {
     return (state: State, action: PayloadAction<JoinedAction>) => {
-        const joinCode = Join.fromString(
-            action.payload.joinCode
-        );
+        const joinCode = Join.fromString(action.payload.joinCode);
         const gameCode = joinCode.getGameCode();
         const gameState = state.games[gameCode];
 

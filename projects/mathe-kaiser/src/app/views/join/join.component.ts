@@ -94,7 +94,7 @@ export class JoinComponent implements OnInit {
     }
 
     nextScreen() {
-        this.router.navigate(['avatar']);
+        this.router.navigate(['game']);
     }
 }
 
