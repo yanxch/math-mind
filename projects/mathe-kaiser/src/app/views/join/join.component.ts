@@ -7,7 +7,8 @@ import {
     OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { randomReadableWord } from '@server/math-mind';
+import { JoinedAction, randomReadableWord } from '@server/math-mind';
+import { joined, store } from 'projects/mathe-kaiser/src/redux';
 import { ButtonModule } from '../../components/action-button/action-button.component';
 import {
     AVAILABLE_AVATARS,
@@ -65,8 +66,9 @@ export class JoinComponent implements OnInit {
     avatar = '';
     showNextAction = true;
     selectedColor;
+    gameCode = 'game1'; // TODO: random
 
-    constructor(private stateService: StateService, private router: Router) {}
+    constructor(private stateService: StateService, private router: Router) { }
 
     ngOnInit(): void {
         const number = randomIntegerNumber(AVAILABLE_AVATARS.length);
@@ -94,6 +96,11 @@ export class JoinComponent implements OnInit {
     }
 
     nextScreen() {
+        const payload: JoinedAction = {
+            joinCode: `${this.gameCode}-${this.username}`
+        };
+        store.dispatch(joined(payload))
+
         this.router.navigate(['game']);
     }
 }
@@ -112,4 +119,4 @@ export class JoinComponent implements OnInit {
     exports: [JoinComponent],
     schemas: [NO_ERRORS_SCHEMA],
 })
-export class LoginModule {}
+export class LoginModule { }

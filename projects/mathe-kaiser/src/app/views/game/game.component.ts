@@ -7,13 +7,16 @@ import {
     ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { SecondLevelCalculationService } from '../calculation.2nd';
-import { FirstLevelCalculationService } from '../calculation.easy';
-import { MultiplyCalculationService } from '../calculation.multiply';
-import { StateService } from '../state/state.service';
+import { State } from '@server/math-mind';
+import { store } from 'projects/mathe-kaiser/src/redux';
+import { createSelector } from 'reselect';
+import { SecondLevelCalculationService } from '../../calculation.2nd';
+import { FirstLevelCalculationService } from '../../calculation.easy';
+import { MultiplyCalculationService } from '../../calculation.multiply';
+import { StateService } from '../../state/state.service';
 import { Option } from './dropdown/dropdown.component';
 
-import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+const selectGame = (gameCode: string) => (state: State) => state.games[gameCode];
 
 @Component({
     selector: 'app-game',
@@ -22,6 +25,8 @@ import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
     changeDetection: ChangeDetectionStrategy.Default,
 })
 export class GameComponent implements AfterViewInit, OnDestroy {
+    gameCode = 'game1';
+
     difficultyOptions = [
         {
             label: 'Level 1',
@@ -60,13 +65,22 @@ export class GameComponent implements AfterViewInit, OnDestroy {
         private stateService: StateService
     ) {
         this.result.valueChanges.subscribe((value) => this.checkResult(value));
+
+        store.subscribe(this.handleChange);
+        console.log('t')
+    }
+
+    handleChange = () => {
+        const game = selectGame(this.gameCode)(store.getState());
+
+        console.log('YOLO - subscribed game', game);
     }
 
     ngAfterViewInit() {
         this.inputElement.nativeElement.focus();
     }
 
-    ngOnDestroy() {}
+    ngOnDestroy() { }
 
     checkResult(value: any) {
         const result = eval(`${this.currentCalculation.join(' ')}`);

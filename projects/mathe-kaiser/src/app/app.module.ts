@@ -11,10 +11,10 @@ import { ButtonModule } from './components/action-button/action-button.component
 import { AvatarsListComponentModule } from './components/avatars-list/avatars-list.component';
 import { NavigationBarComponentModule } from './components/navigation-bar/navigation-bar.component';
 import { UsernameInputComponentModule } from './components/username-input/username-input.component';
-import { DropdownComponent } from './game/dropdown/dropdown.component';
-import { GameComponent } from './game/game.component';
-import { MenuButtonComponent } from './game/menu-button/menu-button.component';
-import { SuccessComponent } from './game/success/success.component';
+import { DropdownComponent } from './views/game/dropdown/dropdown.component';
+import { GameComponent } from './views/game/game.component';
+import { MenuButtonComponent } from './views/game/menu-button/menu-button.component';
+import { SuccessComponent } from './views/game/success/success.component';
 import { Game2Component } from './game2/game2.component';
 import { InvitationComponent } from './invitation/invitation.component';
 import { NumberComponent } from './number/number.component';
@@ -55,4 +55,4 @@ export function windowFactory() {
     providers: [{ provide: 'window', useFactory: windowFactory }],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

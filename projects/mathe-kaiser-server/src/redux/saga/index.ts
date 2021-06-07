@@ -1,12 +1,10 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { fork, takeEvery, select } from 'redux-saga/effects';
+import { fork, select, takeEvery } from 'redux-saga/effects';
 import { joined, sendCaluclation } from '..';
 import { asJson } from '../../utils/ws-util';
 import { Game } from '../model/Game';
 import { Join } from '../model/Join';
 import { JoinedAction } from '../reducer/Join';
-import { SendCalculationAction } from '../reducer/SendCalculation';
-import { StartGameAction } from '../reducer/StartGame';
 import { GameState, State } from '../state';
 import { connections } from './connections';
 

@@ -37,10 +37,12 @@ TODOS
 
 
  - connect client
- -- init Redux
- -- access classes from server - reuse as much as possible -
- ---- everything expect middleware
- -- WebsocketService: takes action and dispatches it on the client :)
+ -- init Redux (/)
+ -- access classes from server - reuse as much as possible - (/)
+ ---- everything expect middleware (/)
+
+ - Late Subscription in game.component.ts - how does redux alone solve this problem?
+ - WebsocketService: takes action and dispatches it on the client :)
 
 
  VIEW Refactorings:

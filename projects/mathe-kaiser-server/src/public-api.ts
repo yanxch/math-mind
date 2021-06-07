@@ -6,3 +6,5 @@ export * from './redux/reducer/StartGame';
 export * from './redux/reducer/AnswerLogic';
 
 export * from './redux/model/Calculation';
+
+export * from './redux/state';
