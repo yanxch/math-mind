@@ -3,13 +3,13 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
+    Input,
     OnDestroy,
-    ViewChild,
+    ViewChild
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { State } from '@server/math-mind';
+import { GameState, State } from '@server/math-mind';
 import { store } from 'projects/mathe-kaiser/src/redux';
-import { createSelector } from 'reselect';
 import { SecondLevelCalculationService } from '../../calculation.2nd';
 import { FirstLevelCalculationService } from '../../calculation.easy';
 import { MultiplyCalculationService } from '../../calculation.multiply';
@@ -19,12 +19,16 @@ import { Option } from './dropdown/dropdown.component';
 const selectGame = (gameCode: string) => (state: State) => state.games[gameCode];
 
 @Component({
-    selector: 'app-game',
+    selector: 'Game',
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.css'],
     changeDetection: ChangeDetectionStrategy.Default,
 })
 export class GameComponent implements AfterViewInit, OnDestroy {
+
+    @Input()
+    gameState: GameState;
+
     gameCode = 'game1';
 
     difficultyOptions = [
@@ -65,9 +69,6 @@ export class GameComponent implements AfterViewInit, OnDestroy {
         private stateService: StateService
     ) {
         this.result.valueChanges.subscribe((value) => this.checkResult(value));
-
-        store.subscribe(this.handleChange);
-        console.log('t')
     }
 
     handleChange = () => {
@@ -77,6 +78,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
+        console.log('Gamestate:', this.gameState);
         this.inputElement.nativeElement.focus();
     }
 

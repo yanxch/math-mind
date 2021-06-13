@@ -4,11 +4,12 @@ import { GameComponent } from './views/game/game.component';
 import { JoinComponent } from './views/join/join.component';
 import { InvitationComponent } from './invitation/invitation.component';
 import { Game2Component } from './game2/game2.component';
+import { GameContainer } from './views/game/game.container';
 
 const routes: Routes = [
     {
         path: 'game',
-        component: GameComponent,
+        component: GameContainer,
     },
     {
         path: 'game/:code',

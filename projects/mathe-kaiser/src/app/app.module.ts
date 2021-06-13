@@ -19,6 +19,7 @@ import { Game2Component } from './game2/game2.component';
 import { InvitationComponent } from './invitation/invitation.component';
 import { NumberComponent } from './number/number.component';
 import { LoginModule } from './views/join/join.component';
+import { GameContainer } from './views/game/game.container';
 
 export function windowFactory() {
     return window;
@@ -28,6 +29,7 @@ export function windowFactory() {
     declarations: [
         AppComponent,
         NumberComponent,
+        GameContainer,
         GameComponent,
         SuccessComponent,
         MenuButtonComponent,
