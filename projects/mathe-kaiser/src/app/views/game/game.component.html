@@ -8,73 +8,33 @@
             <div class="flex items-center">
                 <p class="text-2xl mr-4">{{ points$ | async }}</p>
                 <div *ngIf="avatar$ | async as avatar">
-                    <Planet
-                        *ngIf="avatar === 'planet'"
-                        size="50"
-                        mood="happy"
-                        [color]="avatarColor$ | async"
-                    ></Planet>
-                    <Backpack
-                        *ngIf="avatar === 'backpack'"
-                        size="50"
-                        mood="excited"
-                        [color]="avatarColor$ | async"
-                    ></Backpack>
-                    <Cat
-                        *ngIf="avatar === 'cat'"
-                        size="50"
-                        mood="excited"
-                        [color]="avatarColor$ | async"
-                    ></Cat>
-                    <Ghost
-                        *ngIf="avatar === 'ghost'"
-                        size="50"
-                        mood="excited"
-                        [color]="avatarColor$ | async"
-                    ></Ghost>
-                    <IceCream
-                        *ngIf="avatar === 'icecream'"
-                        size="50"
-                        mood="blissful"
-                        [color]="avatarColor$ | async"
-                    ></IceCream>
+                    <Planet *ngIf="avatar === 'planet'" size="50" mood="happy" [color]="avatarColor$ | async"></Planet>
+                    <Backpack *ngIf="avatar === 'backpack'" size="50" mood="excited" [color]="avatarColor$ | async">
+                    </Backpack>
+                    <Cat *ngIf="avatar === 'cat'" size="50" mood="excited" [color]="avatarColor$ | async"></Cat>
+                    <Ghost *ngIf="avatar === 'ghost'" size="50" mood="excited" [color]="avatarColor$ | async"></Ghost>
+                    <IceCream *ngIf="avatar === 'icecream'" size="50" mood="blissful" [color]="avatarColor$ | async">
+                    </IceCream>
                 </div>
             </div>
         </div>
 
         <div class="pl-3 pr-3">
-            <Dropdown
-                *ngIf="showMenu"
-                [options]="difficultyOptions"
-                [selectedValue]="selectedDifficultyOption"
-                (selectedValueChange)="difficultySelected($event)"
-            >
+            <Dropdown *ngIf="showMenu" [options]="difficultyOptions" [selectedValue]="selectedDifficultyOption"
+                (selectedValueChange)="difficultySelected($event)">
             </Dropdown>
         </div>
     </div>
 </nav>
-<div
-    class="w-screen bg-green-200 content"
-    [class.content-navbar-open]="showMenu"
->
+<div class="w-screen bg-green-200 content" [class.content-navbar-open]="showMenu">
     <div class="flex justify-center">
-        <p
-            class="text-6xl font-mono p-5 text-purple-800"
-            *ngFor="let part of currentCalculation"
-        >
+        <p class="text-6xl font-mono p-5 text-purple-800" *ngFor="let part of calculationParts">
             {{ part }}
         </p>
     </div>
     <div class="flex justify-center">
-        <input
-            #inputElement
-            [formControl]="result"
-            type="text"
-            inputmode="decimal"
-            placeholder=""
-            disabled
-            class="p-10 min-w-full text-5xl lg-text-6xl shadow bg-green-500 bg-opacity-25 outline-none text-center"
-        />
+        <input #inputElement [formControl]="result" type="text" inputmode="decimal" placeholder="" disabled
+            class="p-10 min-w-full text-5xl lg-text-6xl shadow bg-green-500 bg-opacity-25 outline-none text-center" />
     </div>
     <div class="mt-5">
         <Success *ngIf="showSuccess"></Success>

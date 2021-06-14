@@ -8,7 +8,7 @@ import {
     ViewChild
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { GameState, State } from '@server/math-mind';
+import { Calculation, CalculationState, GameState, State } from '@server/math-mind';
 import { store } from 'projects/mathe-kaiser/src/redux';
 import { SecondLevelCalculationService } from '../../calculation.2nd';
 import { FirstLevelCalculationService } from '../../calculation.easy';
@@ -28,6 +28,10 @@ export class GameComponent implements AfterViewInit, OnDestroy {
 
     @Input()
     gameState: GameState;
+
+    calculation: Calculation;
+    calculationParts: any[];
+
 
     gameCode = 'game1';
 
@@ -56,7 +60,6 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     selectedDifficultyOption = this.difficultyOptions[0];
     selectedDifficultyCalculation = this.selectedDifficultyOption.value;
 
-    currentCalculation = this.selectedDifficultyCalculation.calculationParts();
 
     showMenu = false;
 
@@ -71,10 +74,9 @@ export class GameComponent implements AfterViewInit, OnDestroy {
         this.result.valueChanges.subscribe((value) => this.checkResult(value));
     }
 
-    handleChange = () => {
-        const game = selectGame(this.gameCode)(store.getState());
-
-        console.log('YOLO - subscribed game', game);
+    ngOnInit() {
+        this.calculation = new Calculation(this.gameState.task as CalculationState);
+        this.calculationParts = this.calculation.asState().calculation
     }
 
     ngAfterViewInit() {
@@ -85,7 +87,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     ngOnDestroy() { }
 
     checkResult(value: any) {
-        const result = eval(`${this.currentCalculation.join(' ')}`);
+        const result = eval(`${this.calculationParts.join(' ')}`);
         // console.log(value, result);
 
         const isCorrect =
@@ -99,7 +101,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
                 this.showSuccess = false;
                 this.result.setValue(null);
                 this.selectedDifficultyCalculation.newCalculation();
-                this.currentCalculation = this.selectedDifficultyCalculation.calculationParts();
+                this.calculationParts = this.selectedDifficultyCalculation.calculationParts();
             }, 2000);
         }
     }
@@ -114,7 +116,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
         this.selectedDifficultyCalculation = event.value;
 
         this.selectedDifficultyCalculation.newCalculation();
-        this.currentCalculation = this.selectedDifficultyCalculation.calculationParts();
+        this.calculationParts = this.selectedDifficultyCalculation.calculationParts();
     }
 
     pressed(char: string) {
