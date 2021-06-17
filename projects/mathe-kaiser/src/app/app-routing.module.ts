@@ -8,11 +8,11 @@ import { GameContainer } from './views/game/game.container';
 
 const routes: Routes = [
     {
-        path: 'game',
+        path: 'game/:code',
         component: GameContainer,
     },
     {
-        path: 'game/:code',
+        path: 'game2/:code',
         component: Game2Component,
     },
     {
