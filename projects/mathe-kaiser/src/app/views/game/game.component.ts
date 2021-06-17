@@ -3,12 +3,15 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
+    EventEmitter,
     Input,
     OnDestroy,
+    Output,
     ViewChild
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Calculation, CalculationState, GameState, State } from '@server/math-mind';
+import { AnswerState } from 'projects/mathe-kaiser-server/src/redux/model/Task';
 import { store } from 'projects/mathe-kaiser/src/redux';
 import { SecondLevelCalculationService } from '../../calculation.2nd';
 import { FirstLevelCalculationService } from '../../calculation.easy';
@@ -28,6 +31,9 @@ export class GameComponent implements AfterViewInit, OnDestroy {
 
     @Input()
     gameState: GameState;
+
+    @Output()
+    checkAnswer = new EventEmitter<AnswerState>();
 
     calculation: Calculation;
     calculationParts: any[];
@@ -87,7 +93,12 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     ngOnDestroy() { }
 
     checkResult(value: any) {
-        const result = eval(`${this.calculationParts.join(' ')}`);
+        this.checkAnswer.emit({
+            ...this.gameState.task,
+            result: value
+        } as CalculationState)
+
+        /*const result = eval(`${this.calculationParts.join(' ')}`);
         // console.log(value, result);
 
         const isCorrect =
@@ -103,7 +114,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
                 this.selectedDifficultyCalculation.newCalculation();
                 this.calculationParts = this.selectedDifficultyCalculation.calculationParts();
             }, 2000);
-        }
+        }*/
     }
 
     toggleMenu() {
