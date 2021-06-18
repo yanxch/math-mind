@@ -1,14 +1,18 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { GameState, State } from "@server/math-mind";
-import { store } from "projects/mathe-kaiser/src/redux";
+import { AnswerAction, GameState, State } from "@server/math-mind";
+import { AnswerState } from 'projects/mathe-kaiser-server/src/redux/model/Task';
+import { answer, store } from "projects/mathe-kaiser/src/redux";
 import { Observable } from "rxjs";
 import { filter, map } from "rxjs/operators";
 
 @Component({
     selector: 'GameContainer',
     template: `
-        <Game [gameState]="game$ | async">
+        <Game 
+            [gameState]="game$ | async"
+            [username]="username$ | async"
+            (checkAnswer)="checkAnswer($event)">
         </Game>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -16,6 +20,7 @@ import { filter, map } from "rxjs/operators";
 export class GameContainer {
 
     game$: Observable<GameState>;
+    username$: Observable<string>;
 
     constructor(private route: ActivatedRoute) {
         this.game$ = route.paramMap
@@ -28,6 +33,14 @@ export class GameContainer {
                     return game;
                 })
             );
+        this.username$ = route.paramMap
+            .pipe(
+                map(params => params.get('username')),
+                filter(username => !!username)
+            );
+    }
 
+    checkAnswer(answerAction: AnswerAction) {
+        store.dispatch(answer(answerAction));
     }
 }

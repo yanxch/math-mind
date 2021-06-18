@@ -10,16 +10,13 @@ import {
     ViewChild
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Calculation, CalculationState, GameState, State } from '@server/math-mind';
+import { AnswerAction, Calculation, CalculationState, GameState } from '@server/math-mind';
 import { AnswerState } from 'projects/mathe-kaiser-server/src/redux/model/Task';
-import { store } from 'projects/mathe-kaiser/src/redux';
 import { SecondLevelCalculationService } from '../../calculation.2nd';
 import { FirstLevelCalculationService } from '../../calculation.easy';
 import { MultiplyCalculationService } from '../../calculation.multiply';
 import { StateService } from '../../state/state.service';
 import { Option } from './dropdown/dropdown.component';
-
-const selectGame = (gameCode: string) => (state: State) => state.games[gameCode];
 
 @Component({
     selector: 'Game',
@@ -31,6 +28,9 @@ export class GameComponent implements AfterViewInit, OnDestroy {
 
     @Input()
     gameState: GameState;
+
+    @Input()
+    username: string;
 
     @Output()
     checkAnswer = new EventEmitter<AnswerState>();
@@ -66,7 +66,6 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     selectedDifficultyOption = this.difficultyOptions[0];
     selectedDifficultyCalculation = this.selectedDifficultyOption.value;
 
-
     showMenu = false;
 
     @ViewChild('inputElement') inputElement: ElementRef<HTMLInputElement>;
@@ -94,9 +93,12 @@ export class GameComponent implements AfterViewInit, OnDestroy {
 
     checkResult(value: any) {
         this.checkAnswer.emit({
-            ...this.gameState.task,
-            result: value
-        } as CalculationState)
+            username: this.username,
+            gameCode: this.gameState.gameCode,
+            answer: {
+                result: value
+            }
+        });
 
         /*const result = eval(`${this.calculationParts.join(' ')}`);
         // console.log(value, result);

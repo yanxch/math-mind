@@ -8,7 +8,7 @@ import { GameContainer } from './views/game/game.container';
 
 const routes: Routes = [
     {
-        path: 'game/:code',
+        path: 'game/:code/:username',
         component: GameContainer,
     },
     {

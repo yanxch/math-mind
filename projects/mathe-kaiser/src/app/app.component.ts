@@ -1,5 +1,4 @@
 import { Component, HostListener } from '@angular/core';
-import { InvitationApi } from '../api/invitation-api';
 import { StateService } from './state/state.service';
 
 @Component({
@@ -10,7 +9,7 @@ import { StateService } from './state/state.service';
 export class AppComponent {
     title = 'mathe-kaiser';
 
-    constructor(private stateService: StateService) {}
+    constructor(private stateService: StateService) { }
 
     @HostListener('window:beforeunload')
     saveState() {

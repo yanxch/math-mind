@@ -101,7 +101,7 @@ export class JoinComponent implements OnInit {
         };
         store.dispatch(joined(payload))
 
-        this.router.navigate(['game', this.gameCode]);
+        this.router.navigate(['game', this.gameCode, this.username]);
     }
 }
 
