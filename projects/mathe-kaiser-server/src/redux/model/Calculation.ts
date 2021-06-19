@@ -34,7 +34,7 @@ export class Calculation implements Task {
     }
 
     isCorrect(calculationState: CalculationState) {
-        return (calculationState.result === this.state.result)
+        return Number(calculationState.result).toFixed(3) === Number(this.state.result).toFixed(3);
     }
 }
 
