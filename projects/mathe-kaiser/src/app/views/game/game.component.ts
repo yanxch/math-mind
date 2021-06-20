@@ -5,12 +5,14 @@ import {
     ElementRef,
     EventEmitter,
     Input,
+    OnChanges,
     OnDestroy,
     Output,
+    SimpleChanges,
     ViewChild
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { AnswerAction, Calculation, CalculationState, GameState } from '@server/math-mind';
+import { AnswerAction, Calculation, CalculationState, GameState, PlayerState } from '@server/math-mind';
 import { AnswerState } from 'projects/mathe-kaiser-server/src/redux/model/Task';
 import { SecondLevelCalculationService } from '../../calculation.2nd';
 import { FirstLevelCalculationService } from '../../calculation.easy';
@@ -24,10 +26,13 @@ import { Option } from './dropdown/dropdown.component';
     styleUrls: ['./game.component.css'],
     changeDetection: ChangeDetectionStrategy.Default,
 })
-export class GameComponent implements AfterViewInit, OnDestroy {
+export class GameComponent implements OnChanges, AfterViewInit, OnDestroy {
 
     @Input()
     gameState: GameState;
+
+    @Input()
+    playerState: PlayerState;
 
     @Input()
     username: string;
@@ -37,7 +42,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
 
     calculation: Calculation;
     calculationParts: any[];
-
+    points: number;
 
     gameCode = 'game1';
 
@@ -79,10 +84,17 @@ export class GameComponent implements AfterViewInit, OnDestroy {
         this.result.valueChanges.subscribe((value) => this.checkResult(value));
     }
 
-    ngOnInit() {
-        this.calculation = new Calculation(this.gameState.task as CalculationState);
-        this.calculationParts = this.calculation.asState().calculation
+    ngOnChanges({ playerState, gameState }: SimpleChanges) {
+        if (playerState && playerState.currentValue != playerState.previousValue) {
+            this.points = this.playerState.playerGameState.points;
+        }
+        if (gameState && gameState.currentValue?.task != gameState.previousValue?.task) {
+            this.calculationParts = this.gameState.task.calculation;
+            this.result.setValue(null);
+        }
     }
+
+    ngOnInit() { }
 
     ngAfterViewInit() {
         console.log('Gamestate:', this.gameState);

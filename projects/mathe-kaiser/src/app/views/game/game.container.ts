@@ -17,8 +17,13 @@ const selectPlayer = (gamecode: string, username: string) => createSelector(
 @Component({
     selector: 'GameContainer',
     template: `
+        <ng-container *ngIf="{
+            game: game$ | async,
+            userame: username$ | async
+        }"></ng-container>
         <Game 
-            [gameState]="game$ | async"
+            [gameState]="gameState"
+            [playerState]="playerState"
             [username]="username$ | async"
             (checkAnswer)="checkAnswer($event)">
         </Game>
@@ -30,7 +35,8 @@ export class GameContainer implements OnDestroy {
     game$: Observable<GameState>;
     username$: Observable<string>;
 
-    player: PlayerState;
+    gameState: GameState;
+    playerState: PlayerState;
     username: string;
     gamecode: string;
 
@@ -45,6 +51,7 @@ export class GameContainer implements OnDestroy {
                 map(code => {
                     const state: State = store.getState()
                     const game = state.games[code];
+                    this.gameState = game;
                     return game;
                 })
             );
@@ -56,7 +63,8 @@ export class GameContainer implements OnDestroy {
             );
 
         this.unsubscribe = store.subscribe(() => {
-            this.player = selectPlayer(this.gamecode, this.username)(store.getState())
+            this.playerState = selectPlayer(this.gamecode, this.username)(store.getState())
+            this.gameState = selectGame(this.gamecode)(store.getState());
         })
     }
 
