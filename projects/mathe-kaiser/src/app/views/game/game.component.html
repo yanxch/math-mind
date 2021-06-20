@@ -6,7 +6,7 @@
             </div>
 
             <div class="flex items-center">
-                <p class="text-2xl mr-4">{{ points }}</p>
+                <p class="text-2xl mr-4">{{ playerState?.playerGameState?.points }}</p>
                 <div *ngIf="avatar$ | async as avatar">
                     <Planet *ngIf="avatar === 'planet'" size="50" mood="happy" [color]="avatarColor$ | async"></Planet>
                     <Backpack *ngIf="avatar === 'backpack'" size="50" mood="excited" [color]="avatarColor$ | async">

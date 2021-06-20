@@ -17,14 +17,13 @@ const selectPlayer = (gamecode: string, username: string) => createSelector(
 @Component({
     selector: 'GameContainer',
     template: `
-        <ng-container *ngIf="{
-            game: game$ | async,
-            userame: username$ | async
-        }"></ng-container>
+        <!-- Observables -->
+        <ng-container *ngIf="gamecode$ | async"></ng-container>
+        <ng-container *ngIf="username$ | async"></ng-container>
+        <!-- -->
         <Game 
             [gameState]="gameState"
             [playerState]="playerState"
-            [username]="username$ | async"
             (checkAnswer)="checkAnswer($event)">
         </Game>
     `,
@@ -32,7 +31,7 @@ const selectPlayer = (gamecode: string, username: string) => createSelector(
 })
 export class GameContainer implements OnDestroy {
 
-    game$: Observable<GameState>;
+    gamecode$: Observable<string>;
     username$: Observable<string>;
 
     gameState: GameState;
@@ -43,23 +42,23 @@ export class GameContainer implements OnDestroy {
     unsubscribe: Unsubscribe;
 
     constructor(private route: ActivatedRoute) {
-        this.game$ = route.paramMap
+        this.gamecode$ = route.paramMap
             .pipe(
                 map(params => params.get('code')),
                 filter(code => !!code),
                 tap(code => this.gamecode = code),
-                map(code => {
-                    const state: State = store.getState()
-                    const game = state.games[code];
-                    this.gameState = game;
-                    return game;
+                tap(code => {
+                    this.gameState = selectGame(code)(store.getState());
                 })
             );
         this.username$ = route.paramMap
             .pipe(
                 map(params => params.get('username')),
                 filter(username => !!username),
-                tap(username => this.username = username)
+                tap(username => this.username = username),
+                tap(username => {
+                    this.playerState = selectPlayer(this.gamecode, username)(store.getState());
+                })
             );
 
         this.unsubscribe = store.subscribe(() => {

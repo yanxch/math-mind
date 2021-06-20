@@ -86,7 +86,7 @@ export class GameComponent implements OnChanges, AfterViewInit, OnDestroy {
 
     ngOnChanges({ playerState, gameState }: SimpleChanges) {
         if (playerState && playerState.currentValue != playerState.previousValue) {
-            this.points = this.playerState.playerGameState.points;
+            this.playerState = this.playerState;
         }
         if (gameState && gameState.currentValue?.task != gameState.previousValue?.task) {
             this.calculationParts = this.gameState.task.calculation;
@@ -104,13 +104,15 @@ export class GameComponent implements OnChanges, AfterViewInit, OnDestroy {
     ngOnDestroy() { }
 
     checkResult(value: any) {
-        this.checkAnswer.emit({
-            username: this.username,
-            gameCode: this.gameState.gameCode,
-            answer: {
-                result: value
-            }
-        });
+        if (value) {
+            this.checkAnswer.emit({
+                username: this.playerState.joinState.username,
+                gameCode: this.gameState.gameCode,
+                answer: {
+                    result: value
+                }
+            });
+        }
 
         /*const result = eval(`${this.calculationParts.join(' ')}`);
         // console.log(value, result);
