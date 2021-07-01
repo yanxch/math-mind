@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { createSelector } from '@reduxjs/toolkit';
 import { AnswerAction, GameState, PlayerState, State } from "@server/math-mind";
-import { answer, store } from "projects/mathe-kaiser/src/redux";
+import { answer, store } from 'projects/mathe-kaiser/src/redux';
 import { Unsubscribe } from 'redux-saga';
 import { Observable } from "rxjs";
 import { filter, map, tap } from "rxjs/operators";
@@ -20,10 +20,12 @@ const selectPlayer = (gamecode: string, username: string) => createSelector(
         <!-- Observables -->
         <ng-container *ngIf="gamecode$ | async"></ng-container>
         <ng-container *ngIf="username$ | async"></ng-container>
+        <ng-container *ngIf="points$ | async"></ng-container>
         <!-- -->
         <Game 
             [gameState]="gameState"
             [playerState]="playerState"
+            [points]="points"
             (checkAnswer)="checkAnswer($event)">
         </Game>
     `,
@@ -33,11 +35,13 @@ export class GameContainer implements OnDestroy {
 
     gamecode$: Observable<string>;
     username$: Observable<string>;
+    points$: Observable<number>;
 
     gameState: GameState;
     playerState: PlayerState;
     username: string;
     gamecode: string;
+    points: number;
 
     unsubscribe: Unsubscribe;
 
@@ -61,9 +65,23 @@ export class GameContainer implements OnDestroy {
                 })
             );
 
+        this.points$ = route.paramMap
+            .pipe(
+                map(params => params.get('username')),
+                filter(username => !!username),
+                map(username => {
+                    const playerState = selectPlayer(this.gamecode, username)(store.getState());
+                    return playerState.playerGameState.points;
+                }),
+                tap(points => {
+                    this.points = points;
+                })
+            )
+
         this.unsubscribe = store.subscribe(() => {
             this.playerState = selectPlayer(this.gamecode, this.username)(store.getState())
             this.gameState = selectGame(this.gamecode)(store.getState());
+            this.points = this.playerState.playerGameState.points;
         })
     }
 

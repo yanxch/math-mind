@@ -69,5 +69,5 @@ TODOS
 + Punkte zählen "funktioniert" im Single Player Modus (/)
 + Neue Rechenaufgabe nach richtigem Ergebnis darstellen funktioniert (/)
 + Löschen wenn sich die Aufgabe ändert (/)
-+ Erfolgsmeldung wenn Aufgabe korrekt gelöst wurde
++ Erfolgsmeldung wenn Aufgabe korrekt gelöst wurde (/)
 +

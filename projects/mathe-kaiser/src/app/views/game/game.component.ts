@@ -37,12 +37,14 @@ export class GameComponent implements OnChanges, AfterViewInit, OnDestroy {
     @Input()
     username: string;
 
+    @Input()
+    points: number;
+
     @Output()
     checkAnswer = new EventEmitter<AnswerState>();
 
     calculation: Calculation;
     calculationParts: any[];
-    points: number;
 
     gameCode = 'game1';
 
@@ -84,13 +86,18 @@ export class GameComponent implements OnChanges, AfterViewInit, OnDestroy {
         this.result.valueChanges.subscribe((value) => this.checkResult(value));
     }
 
-    ngOnChanges({ playerState, gameState }: SimpleChanges) {
-        if (playerState && playerState.currentValue != playerState.previousValue) {
-            this.playerState = this.playerState;
+    ngOnChanges({ playerState, gameState, points }: SimpleChanges) {
+        if (playerState && playerState.currentValue !== playerState.previousValue) {
+            this.playerState = playerState.currentValue;
         }
-        if (gameState && gameState.currentValue?.task != gameState.previousValue?.task) {
+        if (gameState && gameState.currentValue?.task !== gameState.previousValue?.task) {
             this.calculationParts = this.gameState.task.calculation;
             this.result.setValue(null);
+        }
+        if (points && points.currentValue !== points.previousValue) {
+            if (points.currentValue > points.previousValue) {
+                this.success();
+            }
         }
     }
 
@@ -102,6 +109,11 @@ export class GameComponent implements OnChanges, AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() { }
+
+    private success() {
+        this.showSuccess = true;
+        setTimeout(() => this.showSuccess = false, 2000);
+    }
 
     checkResult(value: any) {
         if (value) {
