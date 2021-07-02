@@ -9,10 +9,16 @@ import {
     OnDestroy,
     Output,
     SimpleChanges,
-    ViewChild
+    ViewChild,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { AnswerAction, Calculation, CalculationState, GameState, PlayerState } from '@server/math-mind';
+import {
+    AnswerAction,
+    Calculation,
+    CalculationState,
+    GameState,
+    PlayerState,
+} from '@server/math-mind';
 import { AnswerState } from 'projects/mathe-kaiser-server/src/redux/model/Task';
 import { SecondLevelCalculationService } from '../../calculation.2nd';
 import { FirstLevelCalculationService } from '../../calculation.easy';
@@ -24,10 +30,9 @@ import { Option } from './dropdown/dropdown.component';
     selector: 'Game',
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.css'],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameComponent implements OnChanges, AfterViewInit, OnDestroy {
-
     @Input()
     gameState: GameState;
 
@@ -87,10 +92,16 @@ export class GameComponent implements OnChanges, AfterViewInit, OnDestroy {
     }
 
     ngOnChanges({ playerState, gameState, points }: SimpleChanges) {
-        if (playerState && playerState.currentValue !== playerState.previousValue) {
+        if (
+            playerState &&
+            playerState.currentValue !== playerState.previousValue
+        ) {
             this.playerState = playerState.currentValue;
         }
-        if (gameState && gameState.currentValue?.task !== gameState.previousValue?.task) {
+        if (
+            gameState &&
+            gameState.currentValue?.task !== gameState.previousValue?.task
+        ) {
             this.calculationParts = this.gameState.task.calculation;
             this.result.setValue(null);
         }
@@ -101,18 +112,18 @@ export class GameComponent implements OnChanges, AfterViewInit, OnDestroy {
         }
     }
 
-    ngOnInit() { }
+    ngOnInit() {}
 
     ngAfterViewInit() {
         console.log('Gamestate:', this.gameState);
         this.inputElement.nativeElement.focus();
     }
 
-    ngOnDestroy() { }
+    ngOnDestroy() {}
 
     private success() {
         this.showSuccess = true;
-        setTimeout(() => this.showSuccess = false, 2000);
+        setTimeout(() => (this.showSuccess = false), 2000);
     }
 
     checkResult(value: any) {
@@ -121,8 +132,8 @@ export class GameComponent implements OnChanges, AfterViewInit, OnDestroy {
                 username: this.playerState.joinState.username,
                 gameCode: this.gameState.gameCode,
                 answer: {
-                    result: value
-                }
+                    result: value,
+                },
             });
         }
 
@@ -155,7 +166,8 @@ export class GameComponent implements OnChanges, AfterViewInit, OnDestroy {
         this.selectedDifficultyCalculation = event.value;
 
         this.selectedDifficultyCalculation.newCalculation();
-        this.calculationParts = this.selectedDifficultyCalculation.calculationParts();
+        this.calculationParts =
+            this.selectedDifficultyCalculation.calculationParts();
     }
 
     pressed(char: string) {
