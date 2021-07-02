@@ -20,6 +20,7 @@ import { InvitationComponent } from './invitation/invitation.component';
 import { NumberComponent } from './number/number.component';
 import { LoginModule } from './views/join/join.component';
 import { GameContainer } from './views/game/game.container';
+import { hydrate, store } from '../redux';
 
 export function windowFactory() {
     return window;
@@ -57,4 +58,23 @@ export function windowFactory() {
     providers: [{ provide: 'window', useFactory: windowFactory }],
     bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+    constructor() {
+        const state = this.loadStateFromLocalStorage();
+        if (state) {
+            console.log('loading state from local storage: ', state);
+            store.dispatch(hydrate(state));
+        }
+    }
+
+    private loadStateFromLocalStorage() {
+        try {
+            const persistedState = localStorage.getItem('math-mind-state');
+            if (persistedState) {
+                return JSON.parse(persistedState);
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+}

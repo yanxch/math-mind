@@ -71,8 +71,8 @@ TODOS
 + Löschen wenn sich die Aufgabe ändert (/)
 + Erfolgsmeldung wenn Aufgabe korrekt gelöst wurde (/)
 -------
-+ Angular Upgrade auf 12
-+ Redux Persist in local storage
++ Angular Upgrade auf 12 (/)
++ Redux Persist in local storage (/)
 + How to multiplayer?
 
 + UI:
@@ -83,4 +83,6 @@ TODOS
 + Github Actions / Gitlab + Pipeline + Deployment
 ------
 + Mobile Support?
+------
++ save Kawaii in state
 
