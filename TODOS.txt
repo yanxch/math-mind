@@ -78,4 +78,9 @@ TODOS
 + UI:
   - show new calculation only after success animations
   - keyboard - Analysis - keyboard ability
-  
+
+------
++ Github Actions / Gitlab + Pipeline + Deployment
+------
++ Mobile Support?
+
