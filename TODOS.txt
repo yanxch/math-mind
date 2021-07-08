@@ -73,8 +73,51 @@ TODOS
 -------
 + Angular Upgrade auf 12 (/)
 + Redux Persist in local storage (/)
+---------------------------------------
 + How to multiplayer?
 
+-- with automerge we can sync state
+
+-- how does automerge work with redux?
+
+-- who is in charge for generating a new calculation?
+
+
+2 Varianten:
+
+1:
+- Reducer Logik läuft am Client 
+- bei jedem Change wird der State in Richtung Server gesynced (automerge magic am Server)
+- Server informiert jeweils nur jene Clients die sich im selben Game befinden
+
+2:
+- Action wird am Client getriggered 
+- Wird an Server übertragen.
+- Am Server läuft die Reducer Logik
+- neuer State wird an Clients übertragen, welche diesen via automerge updaten
+
+3: --> we go with that one for now!!!
+- ohne automerge 
+--- nix zu tun
+- Websocket Verbindung
+--- Service baut beim Start der Applikation die Verbindung auf.
+--- keine Verbindung -> dann offline Modus starten
+---
+
+- Action wird an Server übermittelt
+- Reducer Logic wird am Server ausgeführt
+- neuer State-Slice wird an Clients übertragen 
+- wenn offline => single player modus ==> reducer logic am client
+
+
+
+TODO:
+- lese automerge docu
+
+
+
+
+---------------------------------------
 + UI:
   - show new calculation only after success animations
   - keyboard - Analysis - keyboard ability
