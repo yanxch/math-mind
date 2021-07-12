@@ -19,8 +19,10 @@ export const answerLogic = (taskFactory: TaskFactory) => (state: State, action: 
         game.newTask(taskFactory.newTask());
 
         setGameState(state, gameCode, game.asState());
+        console.log('answer correct!');
+
     } else {
-        // TBD
+        console.log('answer not correct!');
     }
 }
 

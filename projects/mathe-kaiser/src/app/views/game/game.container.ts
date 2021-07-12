@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { createSelector } from '@reduxjs/toolkit';
 import { AnswerAction, GameState, PlayerState, State } from "@server/math-mind";
@@ -7,11 +7,11 @@ import { Unsubscribe } from 'redux-saga';
 import { Observable } from "rxjs";
 import { filter, map, tap } from "rxjs/operators";
 
-const selectGame = (gamecode: string) => (state: State) => state.games[gamecode];
+const selectGame = (gamecode: string) => (state: State) => state?.games[gamecode];
 
 const selectPlayer = (gamecode: string, username: string) => createSelector(
     selectGame(gamecode),
-    (game: GameState) => game.players.find(player => player.joinState.username === username)
+    (game: GameState) => game?.players?.find(player => player.joinState.username === username)
 );
 
 @Component({
@@ -45,7 +45,7 @@ export class GameContainer implements OnDestroy {
 
     unsubscribe: Unsubscribe;
 
-    constructor(private route: ActivatedRoute) {
+    constructor(private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
         this.gamecode$ = route.paramMap
             .pipe(
                 map(params => params.get('code')),
@@ -71,7 +71,7 @@ export class GameContainer implements OnDestroy {
                 filter(username => !!username),
                 map(username => {
                     const playerState = selectPlayer(this.gamecode, username)(store.getState());
-                    return playerState.playerGameState.points;
+                    return playerState?.playerGameState?.points;
                 }),
                 tap(points => {
                     this.points = points;
@@ -82,6 +82,7 @@ export class GameContainer implements OnDestroy {
             this.playerState = selectPlayer(this.gamecode, this.username)(store.getState())
             this.gameState = selectGame(this.gamecode)(store.getState());
             this.points = this.playerState.playerGameState.points;
+            this.cdr.detectChanges();
         })
     }
 

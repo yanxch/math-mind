@@ -103,7 +103,7 @@ export class GameComponent implements OnChanges, AfterViewInit, OnDestroy {
             gameState.currentValue?.task !== gameState.previousValue?.task
         ) {
             this.calculationParts = this.gameState.task.calculation;
-            this.result.setValue(null);
+
         }
         if (points && points.currentValue !== points.previousValue) {
             if (points.currentValue > points.previousValue) {
@@ -112,16 +112,17 @@ export class GameComponent implements OnChanges, AfterViewInit, OnDestroy {
         }
     }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     ngAfterViewInit() {
         console.log('Gamestate:', this.gameState);
         this.inputElement.nativeElement.focus();
     }
 
-    ngOnDestroy() {}
+    ngOnDestroy() { }
 
     private success() {
+        this.result.setValue(null);
         this.showSuccess = true;
         setTimeout(() => (this.showSuccess = false), 2000);
     }

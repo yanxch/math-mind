@@ -13,8 +13,8 @@ export class WebsocketService {
         this.websocket$ = webSocket(HOST);
         this.websocket$.subscribe(
             (state) => { // whole ws message is our state (hopefully)
-                store.dispatch(hydrate({ state }));
                 console.log('ws message received: ', state);
+                store.dispatch(hydrate({ state }));
                 this.connected = true;
             },
             (err) => console.log(err), // Called if at any point WebSocket API signals some kind of error.

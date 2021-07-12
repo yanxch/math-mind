@@ -18,8 +18,6 @@ wss.on('connection', function connection(connection) {
 
         store.dispatch(addConnection(action, connection));
     });
-
-    connection.send(JSON.stringify({ type: 'CONNECTED' }));
 });
 
 function addConnection(action: AnyAction, connection: ws) {
