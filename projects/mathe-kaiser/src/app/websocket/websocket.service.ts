@@ -7,6 +7,11 @@ export class WebsocketService {
     connected = false;
 
     constructor() {
+        console.log('Yolo - Websocket ...');
+        // TODO 
+        // 1. getCode, getUsername
+        // 2. update ws connection --> type: "games/join"
+
         const HOST = environment.production
             ? location.origin.replace(/^http/, 'ws')
             : 'ws://localhost:8080';
