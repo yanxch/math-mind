@@ -74,6 +74,14 @@ export class Game {
         return player;
     }
 
+    hasAlreadyJoined(username: string): boolean {
+        try {
+            return !!this.getPlayerByUsername(username);
+        } catch (error) {
+            return false;
+        }
+    }
+
     isNewGame() {
         return this.status === 'NEW';
     }

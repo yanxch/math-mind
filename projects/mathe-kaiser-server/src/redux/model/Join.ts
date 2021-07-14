@@ -45,4 +45,8 @@ export class Join {
     getConnectionKey() {
         return this.gameCode;
     }
+
+    getUsername() {
+        return this.username;
+    }
 }
